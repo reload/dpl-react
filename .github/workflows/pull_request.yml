@@ -38,19 +38,19 @@ jobs:
       - name: Lint SCSS
         run: yarn lint:scss
 
-  typescript:
-    name: Typescript compile check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16.4.2'
-          cache: 'yarn'
-      - name: Run typecript compile check
-        run: npx ts-compile-checker
-        working-directory: './src'
+  # typescript:
+  #   name: Typescript compile check
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Setup Node
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: '16.4.2'
+  #         cache: 'yarn'
+  #     - name: Run typecript compile check
+  #       run: npx ts-compile-checker
+  #       working-directory: './src'
 
   eslint:
     name: Lint .js and .jsx
