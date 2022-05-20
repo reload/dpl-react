@@ -128,6 +128,7 @@
     "@reach/alert": "^0.17.0",
     "@reach/dialog": "^0.17.0",
     "@reduxjs/toolkit": "^1.8.1",
+    "axios": "^0.27.2",
     "clsx": "^1.1.1",
     "graphql": "^16.5.0",
     "graphql-tag": "^2.12.6",
