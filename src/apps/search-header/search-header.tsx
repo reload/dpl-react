@@ -24,8 +24,14 @@ const SearchHeader: React.FC = () => {
   const t = useText();
   const [q, setQ] = useState<string>("");
   const [qWithoutQuery, setQWithoutQuery] = useState<string>(q);
-  const [suggestItems, setSuggestItems] = useState<any[]>([]);
-  const [currentlySelectedItem, setCurrentlySelectedItem] = useState<any>("");
+  const [suggestItems, setSuggestItems] = useState<
+    SuggestionsFromQueryStringQuery["suggest"]["result"] | []
+  >([]);
+  // we need to convert between string and suggestion result object so
+  // that the value in the search field on enter click doesn't become [object][object]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [currentlySelectedItem, setCurrentlySelectedItem] =
+    useState<Suggestion | null>(null);
   const [isAutosuggestOpen, setIsAutosuggestOpen] = useState<boolean>(false);
   const {
     data,
@@ -79,7 +85,10 @@ const SearchHeader: React.FC = () => {
     }
   }, [q]);
 
-  function determinSuggestionType(suggestion: Suggestion): string {
+  function determinSuggestionType(suggestion: Suggestion | null): string {
+    if (!suggestion) {
+      return "";
+    }
     if (suggestion.type === SuggestionType.Composit) {
       return suggestion.work?.titles.main[0] || "incomplete data";
     }
@@ -93,7 +102,7 @@ const SearchHeader: React.FC = () => {
     if (!selectedItem) {
       return;
     }
-    setCurrentlySelectedItem(determinSuggestionType(selectedItem));
+    setCurrentlySelectedItem(selectedItem);
   }
 
   // downshift prevents the default form submission event when the autosuggest
@@ -111,26 +120,28 @@ const SearchHeader: React.FC = () => {
   ) {
     const { type } = changes;
     let { highlightedIndex } = changes;
+    console.log({ type });
+    console.log(useCombobox.stateChangeTypes.InputKeyDownEnter);
     if (
       type === useCombobox.stateChangeTypes.ItemMouseMove ||
       type === useCombobox.stateChangeTypes.MenuMouseLeave
     ) {
       return;
     }
-    if (highlightedIndex && highlightedIndex < 0) {
-      setIsAutosuggestOpen(false);
-      return;
-    }
+    // console.log(highlightedIndex && highlightedIndex < 0);
+    // if (highlightedIndex && highlightedIndex < 0) {
+    //   setIsAutosuggestOpen(false);
+    //   return;
+    // }
     if (!highlightedIndex) {
       highlightedIndex = 0;
     }
     const arrayIndex: number = highlightedIndex;
     const currentlyHighlightedObject = orderedData[arrayIndex];
     const currentItemValue = determinSuggestionType(currentlyHighlightedObject);
-    if (
-      type === useCombobox.stateChangeTypes.ControlledPropUpdatedSelectedItem
-    ) {
-      manualRedirect(currentItemValue);
+    if (type === useCombobox.stateChangeTypes.InputKeyDownEnter) {
+      console.log({ arrayIndex });
+      // manualRedirect(currentItemValue);
       return;
     }
     if (
@@ -161,6 +172,7 @@ const SearchHeader: React.FC = () => {
       if (!selectedItem) {
         return;
       }
+      console.log({ selectedItem });
       manualRedirect(itemToString(selectedItem));
     }
   }
@@ -174,6 +186,7 @@ const SearchHeader: React.FC = () => {
   } = useCombobox({
     isOpen: isAutosuggestOpen,
     items: orderedData,
+    itemToString: (item) => determinSuggestionType(item),
     inputValue: qWithoutQuery,
     defaultIsOpen: false,
     onInputValueChange: handleInputValueChange,
