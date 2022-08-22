@@ -1,3 +1,4 @@
+import { capitalize } from "lodash";
 import { useEffect, useRef } from "react";
 import { CoverProps } from "../../../components/cover/cover";
 import configuration, { getConf } from "../../configuration";
@@ -35,7 +36,7 @@ export const filterCreators = (
 
 export const flattenCreators = (creators: WorkSmallFragment["creators"]) =>
   creators.map((creator: WorkSmallFragment["creators"][0]) => {
-    return creator.display;
+    return capitalize(creator.display);
   });
 
 const getCreatorsFromManifestations = (
