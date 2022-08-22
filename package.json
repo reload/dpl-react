@@ -142,6 +142,7 @@
     "downshift": "^6.1.7",
     "graphql": "^16.5.0",
     "graphql-tag": "^2.12.6",
+    "lodash": "^4.17.21",
     "lodash.get": "^4.4.2",
     "orval": "^6.8.1",
     "prop-types": "^15.8.1",
