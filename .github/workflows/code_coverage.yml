@@ -1,8 +1,9 @@
 on:
   push:
-    # Sequence of patterns matched against refs/tags
     branches:
-      - 'main' # Push events to matching v*, i.e. v1.0, v20.15.10
+      - 'main'
+      - 'release/*'
+      - 'fix-code-coverage'
 
 name: Upload Code Coverage
 
