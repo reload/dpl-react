@@ -140,13 +140,7 @@ describe("Modals", () => {
     );
     cy.wait(["@loans", "@work", "@cover"]);
     cy.get(".modal").find(".list-materials").should("have.length", 2);
-    cy.get(".modal")
-      .find(".list-materials")
-      .eq(0)
-      .should(
-        "have.text",
-        "Vælg element til fornyelseDummy bogDummy Some TitleAf Dummy Jens Jensen og Dummy Some Corporation (2006) Materialet er reserveret af andreAfleveres \n            14-07-2022"
-      );
+    cy.contains("Dummy bog");
   });
 
   it("It opens renew loans modal with query params", () => {
@@ -222,13 +216,7 @@ describe("Modals", () => {
     );
     cy.wait(["@loans", "@work", "@cover"]);
     cy.get(".modal").find(".list-materials").should("have.length", 2);
-    cy.get(".modal")
-      .find(".list-materials")
-      .eq(0)
-      .should(
-        "have.text",
-        "Vælg element til fornyelseDummy bogDummy Some TitleAf Dummy Jens Jensen og Dummy Some Corporation (2006) Materialet er reserveret af andreAfleveres \n            14-07-2022"
-      );
+    cy.contains("Dummy bog");
   });
 });
 
