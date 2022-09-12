@@ -1,0 +1,170 @@
+fragment ManifestationsSimple on Manifestations {
+  all {
+    ...ManifestationsSimpleFields
+  }
+  latest {
+    ...ManifestationsSimpleFields
+  }
+}
+
+fragment ManifestationsSimpleFields on Manifestation {
+  pid
+  genreAndForm
+  source
+  titles {
+    main
+    original
+  }
+  publicationYear {
+    display
+  }
+  materialTypes {
+    specific
+  }
+  creators {
+    display
+    __typename
+  }
+  hostPublication {
+    title
+    creator
+    publisher
+    year {
+      year
+    }
+  }
+  languages {
+    main {
+      display
+    }
+  }
+  identifiers {
+    value
+  }
+  contributors {
+    display
+  }
+  edition {
+    summary
+  }
+  audience {
+    generalAudience
+  }
+  physicalDescriptions {
+    numberOfPages
+  }
+  materialTypes {
+    specific
+  }
+  accessTypes {
+    code
+  }
+  access {
+    __typename
+    ... on AccessUrl {
+      origin
+      url
+    }
+    ... on InfomediaService {
+      id
+    }
+    ... on InterLibraryLoan {
+      loanIsPossible
+    }
+    ... on Ereol {
+      origin
+      url
+      canAlwaysBeLoaned
+    }
+    ... on DigitalArticleService {
+      issn
+    }
+  }
+}
+
+fragment SeriesSimple on Series {
+  title
+  isPopular
+  numberInSeries {
+    display
+    number
+  }
+  readThisFirst
+  readThisWhenever
+}
+
+fragment WorkSmall on Work {
+  workId
+  titles {
+    full
+    original
+  }
+  abstract
+  creators {
+    display
+    __typename
+  }
+  series {
+    ...SeriesSimple
+  }
+  seriesMembers {
+    workId
+    titles {
+      main
+      full
+      original
+    }
+  }
+  genreAndForm
+  manifestations {
+    ...ManifestationsSimple
+  }
+}
+
+fragment WorkMedium on Work {
+  ...WorkSmall
+  materialTypes {
+    specific
+  }
+  mainLanguages {
+    display
+    isoCode
+  }
+  subjects {
+    all {
+      display
+    }
+  }
+  reviews {
+    __typename
+    ... on LibrariansReview {
+      author
+      date
+      sections {
+        code
+        heading
+        text
+      }
+    }
+    ... on ExternalReview {
+      author
+      date
+      rating
+      urls {
+        origin
+        url
+      }
+    }
+    ... on InfomediaReview {
+      author
+      date
+      origin
+      rating
+      id
+    }
+  }
+  fictionNonfiction {
+    display
+  }
+  workYear
+}

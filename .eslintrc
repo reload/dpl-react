@@ -56,9 +56,11 @@
           "/**/*.test.tsx",
           "webpack.config.js",
           "postcss.config.js",
+          "orval.config.ts",
           "cypress/plugins/index.js",
-          "cypress/support/index.js",
-          "scripts/postcss-node-sass.js"
+          "cypress/support/index.ts",
+          "scripts/postcss-node-sass.js",
+          "scripts/post-process-generated-graphql.ts"
         ]
       }
     ],
@@ -96,7 +98,15 @@
         // We do not use prop-types in ts.
         "react/prop-types": "off",
         "react/require-default-props": "off",
-        "react/no-unused-prop-types": "off"
+        "react/no-unused-prop-types": "off",
+        "no-underscore-dangle": [
+          "error",
+          {
+            "allow": [
+              "__typename"
+            ]
+          }
+        ]
       }
     },
     {
@@ -106,8 +116,18 @@
       ],
       "rules": {
         // We need a simple way of passing args in stories via object spreading.
-        "react/jsx-props-no-spreading": "off"
+        "react/jsx-props-no-spreading": "off",
       }
     },
+    {
+      "files": [
+        "*.entry.tsx"
+      ],
+      "rules": {
+        // Since we use High Order Functional Component in entries for text props
+        // and want to show the props being used we disable this rule.
+        "@typescript-eslint/no-unused-vars": "off"
+      }
+    }
   ]
 }

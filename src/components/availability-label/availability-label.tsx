@@ -1,51 +1,67 @@
 import React from "react";
 import CheckIcon from "@danskernesdigitalebibliotek/dpl-design-system/build/icons/collection/Check.svg";
 import clsx from "clsx";
-import { Link } from "../utils/link";
+import { useGetAvailabilityV3 } from "../../core/fbs/fbs";
+import { useText } from "../../core/utils/text";
+import { LinkNoStyle } from "../atoms/link-no-style";
 
 export interface AvailabilityLabelProps {
   manifestText: string;
-  availabilityText: string;
-  state: "available" | "unavailable" | "selected";
-  link: string | undefined;
+  selected?: boolean;
+  url?: URL;
+  faustIds: string[];
+  handleSelectManifestation?: () => void | undefined;
 }
 
 export const AvailabilityLabel: React.FC<AvailabilityLabelProps> = ({
   manifestText,
-  availabilityText,
-  state,
-  link
+  selected = false,
+  url,
+  faustIds,
+  handleSelectManifestation
 }) => {
-  const triangleState = {
-    available: "success",
-    unavailable: "alert",
-    selected: "alert"
-  };
+  const t = useText();
+  const { data, isLoading, isError } = useGetAvailabilityV3({
+    recordid: faustIds
+  });
+
+  if (isLoading || isError) {
+    return null;
+  }
+
+  const isAvailable = data?.some((item) => item.available);
+  const availabilityText = isAvailable ? t("available") : t("unavailable");
+  const availableTriangleCss = isAvailable ? "success" : "alert";
 
   const classes = {
     parent: clsx(
       {
-        "pagefold-parent--none availability-label availability-label--selected":
-          state === "selected"
+        "pagefold-parent--none availability-label--selected": selected
       },
       {
-        "pagefold-parent--xsmall availability-label availability-label--unselected":
-          state !== "selected"
+        "pagefold-parent--xsmall availability-label--unselected": !selected
       },
-      "text-label"
+      "text-label",
+      "availability-label"
     ),
     triangle: clsx(
-      { "pagefold-triangle--none": state === "selected" },
+      { "pagefold-triangle--none": selected },
       {
-        [`pagefold-triangle--xsmall pagefold-triangle--xsmall--${triangleState[state]}`]:
-          state !== "selected"
+        [`pagefold-triangle--xsmall pagefold-triangle--xsmall--${availableTriangleCss}`]:
+          !selected
       }
     ),
-    check: clsx("availability-label--check", [`${state}`])
+    check: clsx("availability-label--check", selected && "selected")
   };
 
   const availabilityLabel = (
-    <div className={classes.parent}>
+    <div
+      className={classes.parent}
+      onClick={handleSelectManifestation ?? undefined}
+      onKeyPress={handleSelectManifestation ?? undefined}
+      role="button"
+      tabIndex={0}
+    >
       <div className={classes.triangle} />
       <img className={classes.check} src={CheckIcon} alt="check-icon" />
       <p className="text-label-semibold ml-24">{manifestText}</p>
@@ -54,8 +70,8 @@ export const AvailabilityLabel: React.FC<AvailabilityLabelProps> = ({
     </div>
   );
 
-  return link ? (
-    <Link href={link}>{availabilityLabel}</Link>
+  return url && !handleSelectManifestation ? (
+    <LinkNoStyle url={url}>{availabilityLabel}</LinkNoStyle>
   ) : (
     availabilityLabel
   );
