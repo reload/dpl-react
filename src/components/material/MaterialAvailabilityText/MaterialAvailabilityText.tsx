@@ -3,12 +3,14 @@ import { ManifestationsSimpleFieldsFragment } from "../../../core/dbc-gateway/ge
 import { Pid } from "../../../core/utils/types/ids";
 import MaterialAvailabilityTextOnline from "./online/MaterialAvailabilityTextOnline";
 import MaterialAvailabilityTextPhysical from "./physical/MaterialAvailabilityTextPhysical";
+import { useText } from "../../../core/utils/text";
 
 interface Props {
   manifestation: ManifestationsSimpleFieldsFragment;
 }
 
 const MaterialAvailabilityText: React.FC<Props> = ({ manifestation }) => {
+  const t = useText();
   return (
     <>
       {manifestation.accessTypes.map((item) => {
