@@ -1,3 +1,4 @@
+import { capitalize } from "lodash";
 import { useEffect, useRef } from "react";
 import { CoverProps } from "../../../components/cover/cover";
 import configuration, {
@@ -36,7 +37,7 @@ export const filterCreators = (
 
 export const flattenCreators = (creators: Work["creators"]) =>
   creators.map((creator: Work["creators"][0]) => {
-    return creator.display;
+    return capitalize(creator.display);
   });
 
 const getCreatorsFromManifestations = (manifestations: Manifestation[]) => {
