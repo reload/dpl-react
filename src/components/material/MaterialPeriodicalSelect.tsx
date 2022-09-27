@@ -33,7 +33,7 @@ const MaterialPeriodicalSelect: React.FC<MaterialPeriodicalSelectProps> = ({
   }, [selectPeriodicalSelect, firstEditions]);
 
   return (
-    <div className="text-small-caption material-periodical ">
+    <div className="text-small-caption material-periodical">
       <div className="material-periodical-select">
         <label htmlFor="year">{t("periodicalSelectYearText")}</label>
         <div className="material-periodical-select__border-container">
