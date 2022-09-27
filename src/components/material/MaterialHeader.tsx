@@ -90,9 +90,11 @@ const MaterialHeader: React.FC<MaterialHeaderProps> = ({
           />
         </div>
 
-        {manifestation?.source
-          ?.map((i) => i.toLowerCase())
-          .includes("bibliotekskatalog") && (
+        {manifestation?.materialTypes.map(
+          (materialType: Manifestation["materialTypes"][0]) => {
+            return materialType.specific.includes("periodikum");
+          }
+        ) && (
           <MaterialPeriodical
             faustId={convertPostIdToFaustId(pid)}
             selectPeriodicalSelect={selectPeriodicalSelect}
