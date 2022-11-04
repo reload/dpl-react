@@ -1,11 +1,14 @@
-import React, { useState } from "react";
-import { formatFacetTerms } from "../../apps/search-result/helpers";
+import React from "react";
+import {
+  formatFacetTerms,
+  getPlaceHolderFacets,
+  BowserFacets
+} from "../../apps/search-result/helpers";
 import {
   FilterItemTerm,
   TermOnClickHandler
 } from "../../apps/search-result/types";
 import {
-  FacetField,
   FacetResult,
   useSearchFacetQuery
 } from "../../core/dbc-gateway/generated/graphql";
@@ -27,35 +30,11 @@ const FacetBrowserModal: React.FunctionComponent<FacetBrowserModalProps> = ({
   filters
 }) => {
   const t = useText();
-  const [openFacets, setOpenFacets] = useState<string[]>([]);
-
-  const knownFacets = [
-    FacetField.MainLanguages,
-    FacetField.AccessTypes,
-    FacetField.ChildrenOrAdults,
-    FacetField.Creators,
-    FacetField.FictionNonfiction,
-    FacetField.FictionalCharacter,
-    FacetField.GenreAndForm,
-    FacetField.MaterialTypes,
-    FacetField.Subjects,
-    FacetField.WorkTypes
-  ];
-
-  const getPlaceHolderFacets = (facets: string[]) =>
-    facets.map((facet) => ({
-      name: facet,
-      values: [
-        {
-          term: ""
-        }
-      ]
-    }));
 
   const { data, isLoading } = useSearchFacetQuery(
     {
       q: { all: q },
-      facets: knownFacets,
+      facets: BowserFacets,
       facetLimit: 10,
       filters: formatFacetTerms(filters)
     },
@@ -63,7 +42,7 @@ const FacetBrowserModal: React.FunctionComponent<FacetBrowserModalProps> = ({
       keepPreviousData: true,
       placeholderData: {
         search: {
-          facets: getPlaceHolderFacets(knownFacets)
+          facets: getPlaceHolderFacets(BowserFacets)
         }
       }
     }
@@ -83,8 +62,6 @@ const FacetBrowserModal: React.FunctionComponent<FacetBrowserModalProps> = ({
           facets={data.search.facets as FacetResult[]}
           filterHandler={filterHandler}
           filters={filters}
-          openFacets={openFacets}
-          setOpenFacets={setOpenFacets}
         />
       )}
     </Modal>
