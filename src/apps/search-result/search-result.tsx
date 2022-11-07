@@ -48,12 +48,6 @@ const SearchResult: React.FC<SearchResultProps> = ({ q, pageSize }) => {
     resetPager();
   };
 
-  // If q changes (eg. in Storybook context)
-  //  then make sure that we reset the entire result set.
-  useEffect(() => {
-    setResultItems([]);
-  }, [q, pageSize, filters]);
-
   const createFilters = (
     facets: {
       [key: string]: { [key: string]: FilterItemTerm };
@@ -87,26 +81,26 @@ const SearchResult: React.FC<SearchResultProps> = ({ q, pageSize }) => {
       };
     };
 
-    setHitCount(resultCount);
-    setResultItems((prev) => [...prev, ...resultWorks]);
-  }, [data]);
+    // if page has change then append the new result to the existing result
+    if (page > 0) {
+      setResultItems((prev) => [...prev, ...resultWorks]);
+      return;
+    }
 
-  const worksAreLoaded = Boolean(resultItems.length);
+    setHitCount(resultCount);
+    setResultItems(resultWorks);
+  }, [data, page]);
 
   return (
     <div className="search-result-page">
-      {worksAreLoaded && (
-        <>
-          <SearchResultHeader
-            hitcount={String(hitcount)}
-            q={q}
-            filters={filters}
-            filterHandler={filteringHandler}
-          />
-          <SearchResultList resultItems={resultItems} />
-          {PagerComponent}
-        </>
-      )}
+      <SearchResultHeader
+        hitcount={String(hitcount)}
+        q={q}
+        filters={filters}
+        filterHandler={filteringHandler}
+      />
+      <SearchResultList resultItems={resultItems} />
+      {PagerComponent}
       <FacetBrowserModal
         q={q}
         filters={filters}
