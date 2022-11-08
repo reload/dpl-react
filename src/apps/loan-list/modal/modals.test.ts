@@ -218,4 +218,4 @@ describe("Modals", () => {
   });
 });
 
-export {};
+export { };

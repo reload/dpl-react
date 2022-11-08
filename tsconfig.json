@@ -3,7 +3,7 @@
   "compilerOptions": {
     "jsx": "react",
     "types": [
-      "cypress",
+      "jest",
       "node"
     ],
   },
@@ -13,4 +13,12 @@
       "module": "commonjs"
     }
   },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "cypress"
+  ]
 }
