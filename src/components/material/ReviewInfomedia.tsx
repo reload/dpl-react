@@ -25,6 +25,7 @@ const ReviewInfomedia: React.FC<ReviewInfomediaProps> = ({ review }) => {
   }
   const { infomedia } = data;
   const date = review.date ? usDateStringToDateObj(review.date) : null;
+
   if (infomedia.error) {
     return (
       <li className="review text-small-caption">
@@ -40,6 +41,7 @@ const ReviewInfomedia: React.FC<ReviewInfomediaProps> = ({ review }) => {
       </li>
     );
   }
+
   return (
     <li className="review text-small-caption">
       {(review.author || review.date) && (
@@ -61,7 +63,7 @@ const ReviewInfomedia: React.FC<ReviewInfomediaProps> = ({ review }) => {
         />
       )}
       {/* eslint-enable react/no-danger */}
-      {review.origin && (
+      {review.origin && review.origin.includes(".") && (
         <ReviewMetadata
           author={review.author}
           date={date}
