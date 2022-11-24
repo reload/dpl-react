@@ -8,7 +8,10 @@ import {
   useSearchWithPaginationQuery
 } from "../../core/dbc-gateway/generated/graphql";
 import { Work } from "../../core/utils/types/entities";
-import { formatFacetTerms } from "./helpers";
+import {
+  formatFacetTerms,
+  useGetFacets
+} from "../../components/facet-browser/helper";
 import useFilterHandler from "./useFilterHandler";
 import { FilterItemTerm, TermOnClickHandler } from "./types";
 import { useConfig } from "../../core/utils/config";
@@ -24,8 +27,8 @@ import {
   CampaignMatchPOSTBodyItem
 } from "../../core/dpl-cms/model";
 import Campaign from "../../components/campaign/Campaign";
-import { useGetFacets } from "../../components/facet-browser/helper";
 import FacetBrowserModal from "../../components/facet-browser/FacetBrowserModal";
+import FacetLine from "../../components/facet-line/FacetLine";
 
 interface SearchResultProps {
   q: string;
@@ -123,24 +126,25 @@ const SearchResult: React.FC<SearchResultProps> = ({ q, pageSize }) => {
       };
     };
 
-    setHitCount(resultCount);
-    setResultItems((prev) => [...prev, ...resultWorks]);
-  }, [data]);
+    // if page has change then append the new result to the existing result
+    if (page > 0) {
+      setResultItems((prev) => [...prev, ...resultWorks]);
+      return;
+    }
 
-  const worksAreLoaded = Boolean(resultItems.length);
+    setHitCount(resultCount);
+    setResultItems(resultWorks);
+  }, [data, page]);
 
   return (
     <div className="search-result-page">
-      {worksAreLoaded && (
-        <>
-          <SearchResultHeader hitcount={String(hitcount)} q={q} />
-          {campaignData && campaignData.data && (
-            <Campaign campaignData={campaignData.data} />
-          )}
-          <SearchResultList resultItems={resultItems} />
-          {PagerComponent}
-        </>
+      <SearchResultHeader hitcount={String(hitcount)} q={q} />
+      <FacetLine q={q} filters={filters} filterHandler={filteringHandler} />
+      {campaignData && campaignData.data && (
+        <Campaign campaignData={campaignData.data} />
       )}
+      <SearchResultList resultItems={resultItems} />
+      {PagerComponent}
       <FacetBrowserModal
         q={q}
         filters={filters}
