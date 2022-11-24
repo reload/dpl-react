@@ -29,6 +29,7 @@ import {
 import Campaign from "../../components/campaign/Campaign";
 import FacetBrowserModal from "../../components/facet-browser/FacetBrowserModal";
 import FacetLine from "../../components/facet-line/FacetLine";
+import { statistics } from "../../core/statistics/statistics";
 
 interface SearchResultProps {
   q: string;
@@ -53,6 +54,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ q, pageSize }) => {
   const { PagerComponent, page, resetPager } = usePager(hitcount, pageSize);
   const { filters, filterHandler } = useFilterHandler();
   const { mutate } = useCampaignMatchPOST();
+  const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true);
   const [campaignData, setCampaignData] = useState<CampaignMatchPOST200 | null>(
     null
   );
@@ -70,7 +72,11 @@ const SearchResult: React.FC<SearchResultProps> = ({ q, pageSize }) => {
 
   const { track } = useStatistics();
   useEffect(() => {
-    track("click", { id: 10, name: "On site search string", trackedData: q });
+    track("click", {
+      id: statistics.searchQuery.id,
+      name: statistics.searchQuery.name,
+      trackedData: q
+    });
     // We actaully just want to track if the query changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [q]);
@@ -135,6 +141,34 @@ const SearchResult: React.FC<SearchResultProps> = ({ q, pageSize }) => {
     setHitCount(resultCount);
     setResultItems(resultWorks);
   }, [data, page]);
+
+  useEffect(() => {
+    // We want to disregard the first search result length because it is always 0
+    // (we set it using setHitCount useEffect() above)
+    if (isFirstLoad) {
+      setIsFirstLoad(false);
+      return;
+    }
+    track("click", {
+      id: statistics.searchResultCount.id,
+      name: statistics.searchResultCount.name,
+      trackedData: hitcount.toString()
+    });
+    // We actaully just want to track if the hitcount changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hitcount]);
+
+  useEffect(() => {
+    if (campaignData?.data?.title) {
+      track("click", {
+        id: statistics.campaignShown.id,
+        name: statistics.campaignShown.name,
+        trackedData: campaignData.data.title
+      });
+    }
+    // We only want to track when campaignData changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [campaignData]);
 
   return (
     <div className="search-result-page">
