@@ -606,6 +606,17 @@ export default {
       name: "Url where user can authenticate",
       defaultValue: "",
       control: { type: "text" }
+    },
+    materialIsAvailableInAnotherEditionText: {
+      name: "Skip queue material is available in another edition",
+      defaultValue:
+        "Skip the queue - The material is available in another edition",
+      control: { type: "text" }
+    },
+    materialIsAvailableInAnotherEditionReservationsText: {
+      name: "Skip queue reservations cont",
+      defaultValue: "reservations",
+      control: { type: "text" }
     }
   }
 } as ComponentMeta<typeof MaterialEntry>;
@@ -625,6 +636,16 @@ Periodical.args = {
 export const Infomedia = Template.bind({});
 Infomedia.args = {
   wid: "work-of:870971-avis:35731733"
+};
+
+export const HarryPotter = Template.bind({});
+HarryPotter.args = {
+  wid: "work-of:870970-basis:22629344"
+};
+
+export const TurenGårTilRom = Template.bind({});
+TurenGårTilRom.args = {
+  wid: "work-of:870970-basis:61991484"
 };
 
 export const Digital = Template.bind({});

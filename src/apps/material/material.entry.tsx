@@ -103,6 +103,8 @@ interface MaterialEntryTextProps {
   tryAginButtonText: string;
   twoMonthsText: string;
   typeText: string;
+  materialIsAvailableInAnotherEditionText: string;
+  materialIsAvailableInAnotherEditionReservationsText: string;
   saveButtonText: string;
   orderDigitalCopyModalScreenReaderModalDescriptionText: string;
   orderDigitalCopyModalCloseModalAriaLabelText: string;
