@@ -25,6 +25,7 @@ import { Manifestation, Work } from "../../core/utils/types/entities";
 import { PeriodicalEdition } from "./periodical/helper";
 import { useStatistics } from "../../core/statistics/useStatistics";
 import { statistics } from "../../core/statistics/statistics";
+import MaterialCover from "../cover/MaterialCover";
 
 interface MaterialHeaderProps {
   wid: WorkId;
@@ -107,7 +108,7 @@ const MaterialHeader: React.FC<MaterialHeaderProps> = ({
   return (
     <header className="material-header">
       <div className="material-header__cover">
-        <Cover id={coverPid} size="xlarge" animate />
+        <MaterialCover id={coverPid} />
       </div>
       <div className="material-header__content">
         <ButtonFavourite id={wid} addToListRequest={addToListRequest} />
