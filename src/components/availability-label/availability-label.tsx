@@ -2,7 +2,7 @@ import React from "react";
 import CheckIcon from "@danskernesdigitalebibliotek/dpl-design-system/build/icons/collection/Check.svg";
 import clsx from "clsx";
 import { useDeepCompareEffect } from "react-use";
-import { useGetAvailabilityV3 } from "../../core/fbs/fbs";
+// import { useGetAvailabilityV3 } from "../../core/fbs/fbs";
 import { useText } from "../../core/utils/text";
 import { LinkNoStyle } from "../atoms/link-no-style";
 import { useConfig } from "../../core/utils/config";
@@ -27,16 +27,29 @@ export const AvailabilityLabel: React.FC<AvailabilityLabelProps> = ({
   cursorPointer = false,
   dataCy = "availability-label"
 }) => {
-  const config = useConfig();
-  const blacklistBranches = config("blacklistedAvailabilityBranchesConfig", {
-    transformer: "stringToArray"
-  });
+  // const config = useConfig();
+  // const blacklistBranches = config("blacklistedAvailabilityBranchesConfig", {
+  //   transformer: "stringToArray"
+  // });
   const { track } = useStatistics();
   const t = useText();
-  const { data, isLoading, isError } = useGetAvailabilityV3({
-    recordid: faustIds,
-    ...(blacklistBranches ? { exclude: blacklistBranches } : {})
-  });
+  // const { data, isLoading, isError } = useGetAvailabilityV3({
+  //   recordid: faustIds,
+  //   ...(blacklistBranches ? { exclude: blacklistBranches } : {})
+  // });
+  // Simulating a response from the availability service.
+  const { data, isLoading, isError } = {
+    data: [
+      {
+        available: true,
+        recordId: faustIds[0],
+        reservable: true,
+        reservations: 2
+      }
+    ],
+    isLoading: false,
+    isError: false
+  };
 
   const isAvailable = data?.some((item) => item.available);
   const availabilityText = isAvailable ? t("available") : t("unavailable");
