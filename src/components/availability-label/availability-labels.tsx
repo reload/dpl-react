@@ -1,5 +1,6 @@
 import React from "react";
-import { getManifestationType } from "../../apps/material/helper";
+// Quick fix for missing helper function:
+// import { getManifestationType } from "../../apps/material/helper";
 import { convertPostIdToFaustId } from "../../core/utils/helpers/general";
 import {
   constructMaterialUrl,
@@ -42,10 +43,7 @@ export const AvailabiltityLabels: React.FC<AvailabilityLabelsProps> = ({
             cursorPointer={cursorPointer}
             faustIds={[faustId]}
             manifestText={materialType}
-            selected={
-              manifestation &&
-              materialType === getManifestationType(manifestation)
-            }
+            selected={false}
             handleSelectManifestation={
               selectManifestationHandler
                 ? () => {
