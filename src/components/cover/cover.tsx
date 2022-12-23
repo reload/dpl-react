@@ -13,6 +13,7 @@ export type CoverProps = {
   description?: string;
   url?: URL;
   idType?: GetCoverCollectionType;
+  isMainImage?: boolean;
 };
 
 export const Cover = ({
@@ -22,7 +23,8 @@ export const Cover = ({
   animate,
   tint,
   id,
-  idType
+  idType,
+  isMainImage = false
 }: CoverProps) => {
   let dataSize: CoverProps["size"] = size;
   if (dataSize === "xsmall") {
@@ -56,7 +58,13 @@ export const Cover = ({
   };
 
   const coverUrl = data?.[0]?.imageUrls?.[`${dataSize}`]?.url;
-  const image = coverUrl && <img src={coverUrl} alt={description || ""} />;
+  const image = coverUrl && (
+    <img
+      src={coverUrl}
+      alt={description || ""}
+      fetchpriority={isMainImage ? "high" : "auto"}
+    />
+  );
 
   return (
     <div className="cover-container">
