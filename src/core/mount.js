@@ -46,7 +46,9 @@ function mount(context) {
     }
   }
 
-  appContainers.forEach(mountApp);
+  appContainers.forEach(
+    requestIdleCallback(() => appContainers.forEach(mountApp))
+  );
 }
 
 /**
