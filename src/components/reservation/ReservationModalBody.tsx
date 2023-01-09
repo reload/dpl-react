@@ -156,13 +156,7 @@ const ReservationModalBody = ({
     reservationResponse?.reservationResults[0]?.reservationDetails;
 
   return (
-    <Modal
-      modalId={reservationModalId(faustId)}
-      screenReaderModalDescriptionText={t(
-        "reservationModalScreenReaderModalDescriptionText"
-      )}
-      closeModalAriaLabelText={t("reservationModalCloseModalAriaLabelText")}
-    >
+    <>
       {!reservationResult && (
         <section className="reservation-modal">
           <header className="reservation-modal-header">
@@ -254,7 +248,7 @@ const ReservationModalBody = ({
           setReservationResponse={setReservationResponse}
         />
       )}
-    </Modal>
+    </>
   );
 };
 
