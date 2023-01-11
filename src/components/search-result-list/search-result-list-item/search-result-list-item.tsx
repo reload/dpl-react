@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { memo, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useText } from "../../../core/utils/text";
 import { WorkId } from "../../../core/utils/types/ids";
@@ -63,7 +63,6 @@ const SearchResultListItem: React.FC<SearchResultListItemProps> = ({
   // We use hasBeenVisible to determine if the search result
   // is, or has been, visible in the viewport.
   const { itemRef, hasBeenVisible: showItem } = useItemHasBeenVisible();
-
   const handleClick = useCallback(() => {
     track("click", {
       id: statistics.searchResultNumberClick.id,
@@ -166,4 +165,4 @@ const SearchResultListItem: React.FC<SearchResultListItemProps> = ({
   );
 };
 
-export default SearchResultListItem;
+export default memo(SearchResultListItem);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDeepCompareEffect } from "react-use";
 import SearchResultHeader from "../../components/search-bar/search-result-header/SearchResultHeader";
 import usePager from "../../components/result-pager/use-pager";
@@ -14,7 +14,7 @@ import {
   useGetFacets
 } from "../../components/facet-browser/helper";
 import useFilterHandler from "./useFilterHandler";
-import { TermOnClickHandler } from "./types";
+import { FilterItem, TermOnClickHandler } from "./types";
 import { useStatistics } from "../../core/statistics/useStatistics";
 import { useCampaignMatchPOST } from "../../core/dpl-cms/dpl-cms";
 import {
@@ -44,9 +44,17 @@ const SearchResult: React.FC<SearchResultProps> = ({ q, pageSize }) => {
   const [campaignData, setCampaignData] = useState<CampaignMatchPOST200 | null>(
     null
   );
-  const filteringHandler: TermOnClickHandler = (filterInfo) => {
-    filterHandler(filterInfo);
-  };
+
+  const filteringHandler = useCallback(
+    (filterInfo: { filterItem: FilterItem; action: "remove" | "add" }) => {
+      filterHandler(filterInfo);
+    },
+    [filterHandler]
+  );
+
+  // const filteringHandler: TermOnClickHandler = (filterInfo) => {
+  //   filterHandler(filterInfo);
+  // };
   const { facets: campaignFacets } = useGetFacets(q, filters);
 
   // If q changes (eg. in Storybook context)

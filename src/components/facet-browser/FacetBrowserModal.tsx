@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import {
   FilterItemTerm,
   TermOnClickHandler
@@ -43,4 +43,4 @@ const FacetBrowserModal: React.FunctionComponent<FacetBrowserModalProps> = ({
   );
 };
 
-export default FacetBrowserModal;
+export default memo(FacetBrowserModal);
