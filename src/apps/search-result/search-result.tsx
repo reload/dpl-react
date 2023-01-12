@@ -67,6 +67,10 @@ const SearchResult: React.FC<SearchResultProps> = ({ q, pageSize }) => {
   }, [q]);
 
   useDeepCompareEffect(() => {
+    console.log({ campaignFacets });
+  }, [campaignFacets]);
+
+  useDeepCompareEffect(() => {
     if (campaignFacets) {
       mutate(
         {
@@ -74,9 +78,11 @@ const SearchResult: React.FC<SearchResultProps> = ({ q, pageSize }) => {
         },
         {
           onSuccess: (campaign) => {
+            console.log({ campaign });
             setCampaignData(campaign);
           },
-          onError: () => {
+          onError: (error) => {
+            console.log({ error });
             // TODO: when we handle errors - handle this error
           }
         }
