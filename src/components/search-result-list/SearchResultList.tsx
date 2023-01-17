@@ -9,11 +9,8 @@ export interface SearchResultListProps {
 }
 
 const SearchResultList: React.FC<SearchResultListProps> = ({ resultItems }) => {
-<<<<<<< HEAD
-=======
   const worksAreLoaded = dataIsNotEmpty(resultItems);
 
->>>>>>> skeleton-screens-DDFSOEG-374
   return (
     <ul className="search-result-page__list my-32" data-cy="search-result-list">
       {/*
