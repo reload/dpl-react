@@ -28,7 +28,7 @@ import { guardedRequest } from "../../../core/guardedRequests.slice";
 import { Work } from "../../../core/utils/types/entities";
 import { useStatistics } from "../../../core/statistics/useStatistics";
 import { statistics } from "../../../core/statistics/statistics";
-import { useListItemLazyLoad } from "../../../core/utils/helpers/lazy-load";
+import { useItemHasBeenVisible } from "../../../core/utils/helpers/lazy-load";
 
 export interface SearchResultListItemProps {
   item: Work;
@@ -60,8 +60,9 @@ const SearchResultListItem: React.FC<SearchResultListItemProps> = ({
   const { title: seriesTitle, numberInSeries } = firstInSeries || {};
   const materialFullUrl = constructMaterialUrl(materialUrl, workId as WorkId);
   const { track } = useStatistics();
-  // We use isVisible to determine if the search result is visible in the viewport.
-  const { listItemRef, isVisible } = useListItemLazyLoad();
+  // We use hasBeenVisible to determine if the search result
+  // is, or has been, visible in the viewport.
+  const { itemRef, hasBeenVisible: showItem } = useItemHasBeenVisible();
 
   const handleClick = useCallback(() => {
     track("click", {
@@ -98,13 +99,13 @@ const SearchResultListItem: React.FC<SearchResultListItemProps> = ({
     //
     // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
     <article
-      ref={listItemRef}
+      ref={itemRef}
       className="search-result-item arrow arrow__hover--right-small"
       onClick={handleClick}
       onKeyUp={(e) => e.key === "Enter" && handleClick}
     >
       <div className="search-result-item__cover">
-        {isVisible && (
+        {showItem && (
           <SearchResultListItemCover
             id={manifestationPid}
             description={String(fullTitle)}
@@ -115,7 +116,7 @@ const SearchResultListItem: React.FC<SearchResultListItemProps> = ({
       </div>
       <div className="search-result-item__text">
         <div className="search-result-item__meta">
-          {isVisible && (
+          {showItem && (
             <ButtonFavourite id={workId} addToListRequest={addToListRequest} />
           )}
           {numberInSeries && seriesTitle && (
@@ -134,19 +135,25 @@ const SearchResultListItem: React.FC<SearchResultListItemProps> = ({
           )}
         </div>
 
-        <h2 className="search-result-item__title text-header-h4">
+        <h2
+          className="search-result-item__title text-header-h4"
+          data-cy="search-result-item-title"
+        >
           <Link href={materialFullUrl}>{fullTitle}</Link>
         </h2>
 
         {author && (
-          <p className="text-small-caption">
+          <p className="text-small-caption" data-cy="search-result-item-author">
             {`${t("byAuthorText")} ${author}`}
             {workYear && ` (${workYear.year})`}
           </p>
         )}
       </div>
-      <div className="search-result-item__availability">
-        {isVisible && (
+      <div
+        className="search-result-item__availability"
+        data-cy="search-result-item-availability"
+      >
+        {showItem && (
           <AvailabiltityLabels
             cursorPointer
             workId={workId}

@@ -1,29 +1,29 @@
 import { useEffect, useRef, useState } from "react";
 import { useIntersection } from "react-use";
 
-export const useListItemLazyLoad = () => {
-  const listItemRef = useRef(null);
-  const intersection = useIntersection(listItemRef, {
+export const useItemHasBeenVisible = () => {
+  const itemRef = useRef(null);
+  const intersection = useIntersection(itemRef, {
     root: null,
     rootMargin: "0%",
-    threshold: 0.33
+    threshold: 0
   });
   const isInViewPort = Boolean(intersection?.isIntersecting);
-  const [hasBeenVisible, setHasBeenVisible] = useState<boolean | null>(null);
+  const [hasBeenVisible, setHasBeenVisible] = useState<boolean>(false);
 
-  // We need to track if the item has been visible already.
-  // In that way we can make it stay visible when scrolling back up.
+  // We need to track if the item has been visible already
+  // in order to prevent rerunning setHasBeenVisible again.
   useEffect(() => {
-    if (hasBeenVisible || hasBeenVisible !== null) {
+    if (hasBeenVisible) {
       return;
     }
 
-    if (!hasBeenVisible && isInViewPort) {
+    if (isInViewPort) {
       setHasBeenVisible(true);
     }
   }, [hasBeenVisible, isInViewPort]);
 
-  return { listItemRef, isVisible: isInViewPort || hasBeenVisible };
+  return { itemRef, hasBeenVisible: isInViewPort || hasBeenVisible };
 };
 
 export default {};
