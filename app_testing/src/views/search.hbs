@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <title>Handlebars Demo</title>
+  </head>
+  <body>
+    <h1>Hi I am the search page</h1>
+    <div data-dpl-app="search-result" data-q="hej" data-branches-config="[]" data-blacklisted-search-branches-config><h1>John</h1></div>
+    <script>
+      const getElement = function getElement(element) {
+        if (typeof element.querySelectorAll !== "function") {
+          element = element[0] || element;
+        }
+
+        if (typeof element.querySelectorAll !== "function") {
+          return null;
+        }
+
+        return element;
+      };
+    </script>
+    <script src="{{staticDir}}/runtime.js"></script>
+    <script src="{{staticDir}}/bundle.js"></script>
+    <script src="{{staticDir}}/mount.js"></script>
+    <script src="{{staticDir}}/search-result.js"></script>
+    <script>
+      window.onload = function exampleFunction() {
+        window.dplReact.mount(document);
+      }
+    </script>
+  </body>
+</html>
