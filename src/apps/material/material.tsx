@@ -3,7 +3,6 @@ import VariousIcon from "@danskernesdigitalebibliotek/dpl-design-system/build/ic
 import CreateIcon from "@danskernesdigitalebibliotek/dpl-design-system/build/icons/collection/Create.svg";
 import Receipt from "@danskernesdigitalebibliotek/dpl-design-system/build/icons/collection/Receipt.svg";
 import { useDeepCompareEffect } from "react-use";
-import MaterialHeader from "../../components/material/MaterialHeader";
 import {
   AccessTypeCode,
   ExternalReview,
@@ -43,6 +42,8 @@ import {
   hasCorrectAccessType,
   isArticle
 } from "../../components/material/material-buttons/helper";
+import MaterialHeader from "../../components/material/MaterialHeader";
+import MaterialSkeleton from "../../components/material/MaterialSkeleton";
 
 export interface MaterialProps {
   wid: WorkId;
@@ -126,7 +127,7 @@ const Material: React.FC<MaterialProps> = ({ wid }) => {
   }, [data]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <MaterialSkeleton />;
   }
 
   // TODO: handle error if data is empty array.
