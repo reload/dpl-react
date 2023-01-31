@@ -1,5 +1,6 @@
 import React from "react";
 import { WorkMediumFragment } from "../../core/dbc-gateway/generated/graphql";
+import { useItemHasBeenVisible } from "../../core/utils/helpers/lazy-load";
 import {
   constructMaterialUrl,
   constructSearchUrl
@@ -15,6 +16,7 @@ export interface MaterialDescriptionProps {
 }
 
 const MaterialDescription: React.FC<MaterialDescriptionProps> = ({ work }) => {
+  const { itemRef, hasBeenVisible: showItem } = useItemHasBeenVisible();
   const t = useText();
   const { searchUrl, materialUrl } = useUrls();
   const inSeries = work.series;
@@ -33,59 +35,68 @@ const MaterialDescription: React.FC<MaterialDescriptionProps> = ({ work }) => {
   const { fictionNonfiction } = work;
 
   return (
-    <section className="material-description">
-      <h2 className="text-header-h4 pb-24">{t("descriptionHeadlineText")}</h2>
-      {work.abstract && (
-        <p className="text-body-large material-description__content">
-          {work.abstract[0]}
-        </p>
-      )}
-      <div className="material-description__links mt-32">
-        {inSeries &&
-          inSeries.map((seriesItem, i) => {
-            return (
+    <section ref={itemRef} className="material-description">
+      {showItem && (
+        <>
+          <h2 className="text-header-h4 pb-24">
+            {t("descriptionHeadlineText")}
+          </h2>
+          {work.abstract && (
+            <p className="text-body-large material-description__content">
+              {work.abstract[0]}
+            </p>
+          )}
+          <div className="material-description__links mt-32">
+            {inSeries &&
+              inSeries.map((seriesItem, i) => {
+                return (
+                  <HorizontalTermLine
+                    title={`${t("numberDescriptionText")} ${
+                      seriesItem.numberInSeries?.number
+                    }`}
+                    subTitle={t("inSeriesText")}
+                    linkList={[
+                      {
+                        url: constructSearchUrl(searchUrl, seriesItem.title),
+                        term: seriesItem.title
+                      }
+                    ]}
+                    dataCy={`material-description-series-${i}`}
+                  />
+                );
+              })}
+            {seriesMembersList && (
               <HorizontalTermLine
-                title={`${t("numberDescriptionText")} ${
-                  seriesItem.numberInSeries?.number
-                }`}
-                subTitle={t("inSeriesText")}
+                title={t("inSameSeriesText")}
+                linkList={seriesMembersList}
+                dataCy="material-description-series-members"
+              />
+            )}
+            {subjectsList && (
+              <HorizontalTermLine
+                title={t("identifierText")}
+                linkList={subjectsList}
+                dataCy="material-description-identifier"
+              />
+            )}
+            {fictionNonfiction && (
+              <HorizontalTermLine
+                title={t("fictionNonfictionText")}
                 linkList={[
                   {
-                    url: constructSearchUrl(searchUrl, seriesItem.title),
-                    term: seriesItem.title
+                    url: constructSearchUrl(
+                      searchUrl,
+                      fictionNonfiction.display
+                    ),
+                    term: fictionNonfiction.display
                   }
                 ]}
-                dataCy={`material-description-series-${i}`}
+                dataCy="material-description-fiction-nonfiction"
               />
-            );
-          })}
-        {seriesMembersList && (
-          <HorizontalTermLine
-            title={t("inSameSeriesText")}
-            linkList={seriesMembersList}
-            dataCy="material-description-series-members"
-          />
-        )}
-        {subjectsList && (
-          <HorizontalTermLine
-            title={t("identifierText")}
-            linkList={subjectsList}
-            dataCy="material-description-identifier"
-          />
-        )}
-        {fictionNonfiction && (
-          <HorizontalTermLine
-            title={t("fictionNonfictionText")}
-            linkList={[
-              {
-                url: constructSearchUrl(searchUrl, fictionNonfiction.display),
-                term: fictionNonfiction.display
-              }
-            ]}
-            dataCy="material-description-fiction-nonfiction"
-          />
-        )}
-      </div>
+            )}
+          </div>
+        </>
+      )}
     </section>
   );
 };

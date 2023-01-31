@@ -28,6 +28,7 @@ import { useStatistics } from "../../core/statistics/useStatistics";
 import { statistics } from "../../core/statistics/statistics";
 import { hasCorrectMaterialType } from "./material-buttons/helper";
 import MaterialType from "../../core/utils/types/material-type";
+import { useItemHasBeenVisible } from "../../core/utils/helpers/lazy-load";
 
 interface MaterialHeaderProps {
   wid: WorkId;
@@ -51,6 +52,7 @@ const MaterialHeader: React.FC<MaterialHeaderProps> = ({
   selectedPeriodical,
   selectPeriodicalHandler
 }) => {
+  const { itemRef, hasBeenVisible: showItem } = useItemHasBeenVisible();
   const t = useText();
   const dispatch = useDispatch<TypedDispatch>();
   const addToListRequest = (id: ButtonFavouriteId) => {
@@ -105,36 +107,42 @@ const MaterialHeader: React.FC<MaterialHeaderProps> = ({
       <div className="material-header__cover">
         <Cover id={pid} size="xlarge" animate />
       </div>
-      <div className="material-header__content">
-        <ButtonFavourite id={wid} addToListRequest={addToListRequest} />
-        <MaterialHeaderText title={String(title)} author={author} />
-        <div className="material-header__availability-label">
-          <AvailabilityLabels
-            cursorPointer
-            workId={wid}
-            manifestations={manifestations}
-            selectedManifestations={selectedManifestations}
-            setSelectedManifestations={setSelectedManifestations}
-          />
-        </div>
-
-        {isPeriodical && (
-          <MaterialPeriodical
-            faustId={convertPostIdToFaustId(pid)}
-            selectedPeriodical={selectedPeriodical}
-            selectPeriodicalHandler={selectPeriodicalHandler}
-          />
-        )}
-        {selectedManifestations && (
+      <div ref={itemRef} className="material-header__content">
+        {showItem && (
           <>
-            <div className="material-header__button">
-              <MaterialButtons
-                manifestations={selectedManifestations}
+            <ButtonFavourite id={wid} addToListRequest={addToListRequest} />
+            <MaterialHeaderText title={String(title)} author={author} />
+            <div className="material-header__availability-label">
+              <AvailabilityLabels
+                cursorPointer
                 workId={wid}
-                dataCy="material-header-buttons"
+                manifestations={manifestations}
+                selectedManifestations={selectedManifestations}
+                setSelectedManifestations={setSelectedManifestations}
               />
             </div>
-            <MaterialAvailabilityText manifestations={selectedManifestations} />
+
+            {isPeriodical && (
+              <MaterialPeriodical
+                faustId={convertPostIdToFaustId(pid)}
+                selectedPeriodical={selectedPeriodical}
+                selectPeriodicalHandler={selectPeriodicalHandler}
+              />
+            )}
+            {selectedManifestations && (
+              <>
+                <div className="material-header__button">
+                  <MaterialButtons
+                    manifestations={selectedManifestations}
+                    workId={wid}
+                    dataCy="material-header-buttons"
+                  />
+                </div>
+                <MaterialAvailabilityText
+                  manifestations={selectedManifestations}
+                />
+              </>
+            )}
           </>
         )}
       </div>
