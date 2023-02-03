@@ -37,6 +37,7 @@ interface MaterialHeaderProps {
   setSelectedManifestations: (manifestations: Manifestation[]) => void;
   selectedPeriodical: PeriodicalEdition | null;
   selectPeriodicalHandler: (selectedPeriodical: PeriodicalEdition) => void;
+  children: React.ReactNode;
 }
 
 const MaterialHeader: React.FC<MaterialHeaderProps> = ({
@@ -50,7 +51,8 @@ const MaterialHeader: React.FC<MaterialHeaderProps> = ({
   selectedManifestations,
   setSelectedManifestations,
   selectedPeriodical,
-  selectPeriodicalHandler
+  selectPeriodicalHandler,
+  children
 }) => {
   const { itemRef, hasBeenVisible: showItem } = useItemHasBeenVisible();
   const t = useText();
@@ -107,21 +109,23 @@ const MaterialHeader: React.FC<MaterialHeaderProps> = ({
       <div className="material-header__cover">
         <Cover id={pid} size="xlarge" animate />
       </div>
-      <div ref={itemRef} className="material-header__content">
+      <div className="material-header__content">
+        <ButtonFavourite id={wid} addToListRequest={addToListRequest} />
+        <MaterialHeaderText title={String(title)} author={author} />
+        <div ref={itemRef} className="material-header__availability-label">
+          {showItem && (
+            <AvailabilityLabels
+              cursorPointer
+              workId={wid}
+              manifestations={manifestations}
+              selectedManifestations={selectedManifestations}
+              setSelectedManifestations={setSelectedManifestations}
+            />
+          )}
+        </div>
+
         {showItem && (
           <>
-            <ButtonFavourite id={wid} addToListRequest={addToListRequest} />
-            <MaterialHeaderText title={String(title)} author={author} />
-            <div className="material-header__availability-label">
-              <AvailabilityLabels
-                cursorPointer
-                workId={wid}
-                manifestations={manifestations}
-                selectedManifestations={selectedManifestations}
-                setSelectedManifestations={setSelectedManifestations}
-              />
-            </div>
-
             {isPeriodical && (
               <MaterialPeriodical
                 faustId={convertPostIdToFaustId(pid)}
@@ -143,6 +147,7 @@ const MaterialHeader: React.FC<MaterialHeaderProps> = ({
                 />
               </>
             )}
+            {children}
           </>
         )}
       </div>
