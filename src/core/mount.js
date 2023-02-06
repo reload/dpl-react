@@ -46,7 +46,12 @@ function mount(context) {
     }
   }
 
-  appContainers.forEach((app) => setTimeout(() => mountApp(app), 0));
+  appContainers.forEach((app) =>
+    setTimeout(() => {
+      mountApp(app);
+      console.log("hep man");
+    }, 0)
+  );
 }
 
 /**
