@@ -5,20 +5,57 @@ import path from "path";
 
 // console.log(storySettings);
 
-const port = 5555;
-const staticDir = `http://localhost:${port}/dpl-react-static`;
+const fullStaticPath = (relativeRoute: string, port: number) => {
+  return `http://localhost:${port}${relativeRoute}`;
+};
+
+const settings = {
+  port: 5555,
+  staticDir: {
+    dplReact: {
+      route: "/dpl-react-static",
+      path: "../../dist"
+    },
+    dplDesignSystem: {
+      route: "/dpl-design-system-static",
+      path: "../../node_modules/@danskernesdigitalebibliotek/dpl-design-system/build"
+    }
+  }
+};
+
+const staticDirJs = fullStaticPath(
+  settings.staticDir.dplReact.route,
+  settings.port
+);
+const staticDirCss = fullStaticPath(
+  settings.staticDir.dplDesignSystem.route,
+  settings.port
+);
+
 const app = express(); // create express app
 
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "../src/views"));
 app.use(
-  "/dpl-react-static",
-  express.static(path.join(__dirname, "../../dist"))
+  settings.staticDir.dplReact.route,
+  express.static(path.join(__dirname, settings.staticDir.dplReact.path))
 );
+app.use(
+  settings.staticDir.dplDesignSystem.route,
+  express.static(path.join(__dirname, settings.staticDir.dplDesignSystem.path))
+);
+
+app.get("/work", (req, res) => {
+  res.render("work", {
+    staticDirJs,
+    staticDirCss
+  });
+});
 
 app.get("/search", (req, res) => {
   res.render("search", {
-    staticDir
+    staticDirJs,
+    staticDirCss
   });
 });
 

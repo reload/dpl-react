@@ -1,31 +1,67 @@
 <html>
   <head>
-    <title>Handlebars Demo</title>
+    <title>Search App</title>
+    <link rel="stylesheet" media="all" href="{{staticDirCss}}/css/base.css" />
   </head>
   <body>
-    <h1>Hi I am the search page</h1>
-    <div data-dpl-app="search-result" data-q="hej" data-branches-config="[]" data-blacklisted-search-branches-config><h1>John</h1></div>
+    <div
+      data-dpl-app="search-result"
+      data-q="harry+potter"
+      data-blacklisted-availability-branches-config=""
+      data-blacklisted-search-branches-config=""
+      data-branches-config="[{&quot;branchId&quot;:&quot;DK-775120&quot;,&quot;title&quot;:&quot;H\u00f8jbjerg&quot;},{&quot;branchId&quot;:&quot;DK-775122&quot;,&quot;title&quot;:&quot;Beder-Malling&quot;},{&quot;branchId&quot;:&quot;DK-775144&quot;,&quot;title&quot;:&quot;Gellerup&quot;},{&quot;branchId&quot;:&quot;DK-775167&quot;,&quot;title&quot;:&quot;Lystrup&quot;},{&quot;branchId&quot;:&quot;DK-775146&quot;,&quot;title&quot;:&quot;Harlev&quot;},{&quot;branchId&quot;:&quot;DK-775168&quot;,&quot;title&quot;:&quot;Sk\u00f8dstrup&quot;},{&quot;branchId&quot;:&quot;FBS-751010&quot;,&quot;title&quot;:&quot;Arresten&quot;},{&quot;branchId&quot;:&quot;DK-775147&quot;,&quot;title&quot;:&quot;Hasle&quot;},{&quot;branchId&quot;:&quot;FBS-751032&quot;,&quot;title&quot;:&quot;M\u00e5 ikke benyttes&quot;},{&quot;branchId&quot;:&quot;FBS-751031&quot;,&quot;title&quot;:&quot;Fjernlager 1&quot;},{&quot;branchId&quot;:&quot;DK-775126&quot;,&quot;title&quot;:&quot;Solbjerg&quot;},{&quot;branchId&quot;:&quot;FBS-751030&quot;,&quot;title&quot;:&quot;ITK&quot;},{&quot;branchId&quot;:&quot;DK-775149&quot;,&quot;title&quot;:&quot;Sabro&quot;},{&quot;branchId&quot;:&quot;DK-775127&quot;,&quot;title&quot;:&quot;Tranbjerg&quot;},{&quot;branchId&quot;:&quot;DK-775160&quot;,&quot;title&quot;:&quot;Risskov&quot;},{&quot;branchId&quot;:&quot;DK-775162&quot;,&quot;title&quot;:&quot;Hjortsh\u00f8j&quot;},{&quot;branchId&quot;:&quot;DK-775140&quot;,&quot;title&quot;:&quot;\u00c5by&quot;},{&quot;branchId&quot;:&quot;FBS-751009&quot;,&quot;title&quot;:&quot;Fjernlager 2&quot;},{&quot;branchId&quot;:&quot;FBS-751029&quot;,&quot;title&quot;:&quot;Stadsarkivet&quot;},{&quot;branchId&quot;:&quot;FBS-751027&quot;,&quot;title&quot;:&quot;Intern&quot;},{&quot;branchId&quot;:&quot;FBS-751026&quot;,&quot;title&quot;:&quot;F\u00e6lles undervejs&quot;},{&quot;branchId&quot;:&quot;FBS-751025&quot;,&quot;title&quot;:&quot;F\u00e6llessekretariatet&quot;},{&quot;branchId&quot;:&quot;DK-775133&quot;,&quot;title&quot;:&quot;Bavneh\u00f8j&quot;},{&quot;branchId&quot;:&quot;FBS-751024&quot;,&quot;title&quot;:&quot;Fjernl\u00e5nte materialer&quot;},{&quot;branchId&quot;:&quot;DK-775100&quot;,&quot;title&quot;:&quot;Hovedbiblioteket&quot;},{&quot;branchId&quot;:&quot;DK-775170&quot;,&quot;title&quot;:&quot;Trige&quot;},{&quot;branchId&quot;:&quot;DK-775150&quot;,&quot;title&quot;:&quot;Tilst&quot;},{&quot;branchId&quot;:&quot;DK-775130&quot;,&quot;title&quot;:&quot;Viby&quot;},{&quot;branchId&quot;:&quot;DK-775164&quot;,&quot;title&quot;:&quot;Eg\u00e5&quot;}]"
+      data-auth-url="/login"
+      data-dpl-cms-base-url="https://varnish.pr-227.dpl-cms.dplplat01.dpl.reload.dk"
+      data-material-url="/work/:workid"
+      data-search-url="/search"
+      data-add-more-filters-text="+ more filters"
+      data-available-text="Available"
+      data-by-author-text="By"
+      data-clear-all-text="Clear all"
+      data-et-al-text="et. al."
+      data-facet-access-types-text="Access types"
+      data-facet-browser-modal-close-modal-aria-label-text="Close facet browser modal"
+      data-facet-browser-modal-screen-reader-modal-description-text="Modal for facet browser"
+      data-facet-children-or-adults-text="Children or adults"
+      data-facet-creators-text="Creators"
+      data-facet-fiction-nonfiction-text="Fiction or non-fiction"
+      data-facet-genre-and-form-text="Genre and form"
+      data-facet-main-languages-text="Main languages"
+      data-facet-material-types-text="Material types"
+      data-facet-subjects-text="Subjects"
+      data-facet-work-types-text="Work types"
+      data-filter-list-text="Filter list"
+      data-in-series-text="In series"
+      data-number-description-text="Nr."
+      data-out-of-text="out of"
+      data-result-pager-status-text="Showing @itemsShown out of @hitcount results"
+      data-results-text="results"
+      data-show-more-text="Show more"
+      data-show-results-text="Show results"
+      data-showing-results-for-text="Showing results for"
+      data-showing-text="Showing"
+      data-unavailable-text="Unavailable"
+      data-cover-base-url="https://cover.dandigbib.org"
+      data-fbi-base-url="https://fbi-api.dbc.dk/next/graphql"
+      data-material-list-base-url="https://prod.materiallist.dandigbib.org"
+      data-fbs-base-url="https://fbs-openplatform.dbc.dk"
+      data-publizon-base-url="https://pubhub-openplatform.test.dbc.dk"
+    >
+    </div>
     <script>
-      const getElement = function getElement(element) {
-        if (typeof element.querySelectorAll !== "function") {
-          element = element[0] || element;
-        }
-
-        if (typeof element.querySelectorAll !== "function") {
-          return null;
-        }
-
-        return element;
-      };
+      const getElement = function getElement(element) { if (typeof
+      element.querySelectorAll !== "function") { element = element[0] ||
+      element; } if (typeof element.querySelectorAll !== "function") { return
+      null; } return element; };
     </script>
-    <script src="{{staticDir}}/runtime.js"></script>
-    <script src="{{staticDir}}/bundle.js"></script>
-    <script src="{{staticDir}}/mount.js"></script>
-    <script src="{{staticDir}}/search-result.js"></script>
+    <script src="{{staticDirJs}}/runtime.js"></script>
+    <script src="{{staticDirJs}}/bundle.js"></script>
+    <script src="{{staticDirJs}}/mount.js"></script>
+    <script src="{{staticDirJs}}/search-result.js"></script>
     <script>
-      window.onload = function exampleFunction() {
-        window.dplReact.mount(document);
-      }
+      window.onload = function mount() { window.dplReact.setToken("library",
+      "12f15c5f5dec6cc83db8171e6b7d90b931ff85c4");
+      window.dplReact.mount(document); }
     </script>
   </body>
 </html>
