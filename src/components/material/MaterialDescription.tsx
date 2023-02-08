@@ -35,7 +35,11 @@ const MaterialDescription: React.FC<MaterialDescriptionProps> = ({ work }) => {
   const { fictionNonfiction } = work;
 
   return (
-    <section ref={itemRef} className="material-description">
+    <section
+      ref={itemRef}
+      className="material-description"
+      data-cy="material-description"
+    >
       {showItem && (
         <>
           <h2 className="text-header-h4 pb-24">
