@@ -33,7 +33,7 @@ describe("Material", () => {
     );
   });
 
-  it("Renders horizontal lines", () => {
+  it("Renders series horizontal lines", () => {
     cy.interceptGraphql({
       operationName: "getMaterial",
       fixtureFilePath: "material/fbi-api.json"
