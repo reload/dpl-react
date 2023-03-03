@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import ReachAlert from "@reach/alert";
 import { useText } from "../../core/utils/text";
 
-interface ErrorBoundaryAlertProps {
+export interface ErrorBoundaryAlertProps {
   className?: string;
   type?: "assertive" | "polite";
   variant?: "info" | "success" | "warning" | "blank";
@@ -25,13 +25,17 @@ const ErrorBoundaryAlert: FC<ErrorBoundaryAlertProps> = ({
       type={type}
     >
       <>
-        {t("alertErrorMessageText")}
+        <h1 className="text-header-h3">{t("alertErrorTitleText")}</h1>
+        <p className="text-body-medium-regular my-16">
+          {t("alertErrorMessageText")}
+        </p>
         <button
           type="button"
+          className="btn-primary btn-outline btn-medium"
           aria-label={t("closeErrorWindow")}
           onClick={resetErrorBoundary}
         >
-          ({t("alertErrorCloseText")})
+          {t("alertErrorCloseText")}
         </button>
       </>
     </ReachAlert>
