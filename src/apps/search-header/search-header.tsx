@@ -162,10 +162,7 @@ const SearchHeader: React.FC = () => {
     }
     // If this is a click/enter press we need to save the highlighted index
     // before Downshift sets it to -1.
-    if (
-      type !== useCombobox.stateChangeTypes.ItemClick &&
-      type !== useCombobox.stateChangeTypes.InputKeyDownEnter
-    ) {
+    if (type !== useCombobox.stateChangeTypes.InputKeyDownEnter) {
       if (highlightedIndex !== undefined && highlightedIndex > -1) {
         setHighlightedIndexAfterClick(highlightedIndex);
       }
