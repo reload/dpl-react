@@ -62,6 +62,9 @@ interface MaterialEntryTextProps {
   infomediaModalScreenReaderModalDescriptionText: string;
   inSameSeriesText: string;
   inSeriesText: string;
+  instantLoanSubTitleText: string;
+  instantLoanTitleText: string;
+  instantLoanUnderlineDescriptionText: string;
   librariesHaveTheMaterialText: string;
   listenOnlineText: string;
   loadingText: string;
@@ -96,16 +99,16 @@ interface MaterialEntryTextProps {
   orderDigitalCopyButtonText: string;
   orderDigitalCopyDescriptionText: string;
   orderDigitalCopyEmailLabelText: string;
-  orderDigitalCopyModalCloseModalAriaLabelText: string;
-  orderDigitalCopyModalScreenReaderModalDescriptionText: string;
   orderDigitalCopyFeedbackButtonText: string;
-  orderDigitalCopyFeedbackOkText: string;
   orderDigitalCopyFeedbackErrorAgencyNotSubscribedText: string;
   orderDigitalCopyFeedbackErrorInvalidPickupBranchText: string;
   orderDigitalCopyFeedbackErrorMissingClientConfigurationText: string;
   orderDigitalCopyFeedbackErrorPidNotReservableText: string;
   orderDigitalCopyFeedbackErrorUnauthenticatedUserText: string;
+  orderDigitalCopyFeedbackOkText: string;
   orderDigitalCopyFeedbackTitleText: string;
+  orderDigitalCopyModalCloseModalAriaLabelText: string;
+  orderDigitalCopyModalScreenReaderModalDescriptionText: string;
   orderDigitalCopyTitleText: string;
   outOfText: string;
   periodicalSelectEditionText: string;
@@ -142,10 +145,12 @@ interface MaterialEntryUrlProps {
   authUrl: string;
 }
 interface MaterialEntryConfigProps {
-  smsNotificationsForReservationsEnabledConfig: boolean;
-  blacklistedPickupBranchesConfig?: string;
   blacklistedAvailabilityBranchesConfig?: string;
+  blacklistedInstantLoanBranchesConfig: string;
+  blacklistedPickupBranchesConfig?: string;
   branchesConfig: string;
+  instantLoanStringConfig: string;
+  smsNotificationsForReservationsEnabledConfig: boolean;
 }
 
 export interface MaterialEntryProps
