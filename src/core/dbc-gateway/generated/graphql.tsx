@@ -24,6 +24,8 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
+  DateTime: unknown;
   /** An integer in the range from 1 to 100 */
   PaginationLimit: unknown;
 };
@@ -537,6 +539,30 @@ export enum LibrariansReviewSectionCode {
   Use = "USE"
 }
 
+export type LinkCheckResponse = {
+  __typename?: "LinkCheckResponse";
+  brokenSince?: Maybe<Scalars["DateTime"]>;
+  lastCheckedAt?: Maybe<Scalars["DateTime"]>;
+  status: LinkCheckStatus;
+  url: Scalars["String"];
+};
+
+export type LinkCheckService = {
+  __typename?: "LinkCheckService";
+  checks: Array<LinkCheckResponse>;
+};
+
+export type LinkCheckServiceChecksArgs = {
+  urls?: InputMaybe<Array<Scalars["String"]>>;
+};
+
+export enum LinkCheckStatus {
+  Broken = "BROKEN",
+  Gone = "GONE",
+  Invalid = "INVALID",
+  Ok = "OK"
+}
+
 export type Manifestation = {
   __typename?: "Manifestation";
   /** Abstract of the entity */
@@ -842,6 +868,7 @@ export type Query = {
   __typename?: "Query";
   complexSearch: ComplexSearchResponse;
   infomedia: InfomediaResponse;
+  linkCheck: LinkCheckService;
   localSuggest: LocalSuggestResponse;
   manifestation?: Maybe<Manifestation>;
   manifestations: Array<Maybe<Manifestation>>;
@@ -2469,7 +2496,14 @@ export type SuggestionsFromQueryStringQuery = {
         >;
         manifestations: {
           __typename?: "Manifestations";
-          bestRepresentation: { __typename?: "Manifestation"; pid: string };
+          bestRepresentation: {
+            __typename?: "Manifestation";
+            pid: string;
+            languages?: {
+              __typename?: "Languages";
+              main?: Array<{ __typename?: "Language"; isoCode: string }> | null;
+            } | null;
+          };
         };
       } | null;
     }>;
@@ -3979,6 +4013,11 @@ export const SuggestionsFromQueryStringDocument = `
         manifestations {
           bestRepresentation {
             pid
+            languages {
+              main {
+                isoCode
+              }
+            }
           }
         }
       }

@@ -108,28 +108,29 @@ export const getManifestationLanguages = (manifestation: Manifestation) => {
 };
 
 export const getManifestationLanguageIsoCode = (
-  manifestation: Manifestation[]
+  manifestations: (
+    | Manifestation
+    | {
+        __typename?: "Manifestation";
+        pid: string;
+        languages?: {
+          __typename?: "Languages";
+          main?: Array<{ __typename?: "Language"; isoCode: string }> | null;
+        } | null;
+      }
+  )[]
+  // | SuggestionsFromQueryStringQuery["suggest"]["result"][0]["work"]["manifestations"]
 ) => {
-  const uniqueLanguages = uniqBy(
-    manifestation.map((m) => m.languages),
-    "main[0].isoCode"
-  );
-  if (
-    uniqueLanguages.length === 1 &&
-    uniqueLanguages[0]?.main?.[0]?.isoCode &&
-    uniqueLanguages[0].main[0].isoCode !== "dan"
-  ) {
-    return uniqueLanguages[0].main[0].isoCode;
-  }
-  return undefined;
-};
+  const mainLanguages = manifestations
+    .map(({ languages }) => languages)
+    .flatMap((language) => language?.main);
 
-export const getManifestationFirstEditionYear = (
-  manifestation: Manifestation
-) => {
-  return manifestation.workYear?.year
-    ? String(manifestation.workYear.year)
-    : "";
+  const uniqueIsoCodes = uniqBy(mainLanguages, "isoCode");
+
+  if (uniqueIsoCodes.length === 1 && uniqueIsoCodes[0]?.isoCode) {
+    return uniqueIsoCodes[0].isoCode;
+  }
+  return window.document.documentElement.lang;
 };
 
 export const getManifestationOriginalTitle = (manifestation: Manifestation) => {

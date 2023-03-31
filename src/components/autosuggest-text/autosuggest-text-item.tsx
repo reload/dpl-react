@@ -1,8 +1,12 @@
 import { UseComboboxPropGetters } from "downshift";
 import React from "react";
 import { useText } from "../../core/utils/text";
-import { SuggestionType } from "../../core/dbc-gateway/generated/graphql";
+import {
+  Manifestation,
+  SuggestionType
+} from "../../core/dbc-gateway/generated/graphql";
 import { Suggestion } from "../../core/utils/types/autosuggest";
+import { getManifestationLanguageIsoCode } from "../../apps/material/helper";
 
 export interface AutosuggestTextItemProps {
   classes: {
@@ -23,6 +27,12 @@ const AutosuggestTextItem: React.FC<AutosuggestTextItemProps> = ({
   getItemProps,
   dataCy = "autosuggest-text-item"
 }) => {
+  const isoLang = item.work?.manifestations.bestRepresentation
+    ? getManifestationLanguageIsoCode([
+        item.work.manifestations.bestRepresentation
+      ])
+    : null;
+
   const t = useText();
   return (
     <>
@@ -33,6 +43,7 @@ const AutosuggestTextItem: React.FC<AutosuggestTextItemProps> = ({
         key={generateItemId(item)}
         {...getItemProps({ item, index })}
         data-cy={dataCy}
+        lang={isoLang}
       >
         {/* eslint-enable react/jsx-props-no-spreading */}
         {item.type === SuggestionType.Creator
