@@ -15,7 +15,10 @@ import { UseTextFunction } from "../../core/utils/text";
 import { Manifestation, Work } from "../../core/utils/types/entities";
 import { FaustId } from "../../core/utils/types/ids";
 import MaterialType from "../../core/utils/types/material-type";
-import { WorkType } from "../../core/dbc-gateway/generated/graphql";
+import {
+  SuggestionsFromQueryStringQuery,
+  WorkType
+} from "../../core/dbc-gateway/generated/graphql";
 
 export const getWorkManifestation = (
   work: Work,
@@ -107,19 +110,15 @@ export const getManifestationLanguages = (manifestation: Manifestation) => {
   );
 };
 
+type ManifestationOrBestRepresentation =
+  | Manifestation
+  | Exclude<
+      SuggestionsFromQueryStringQuery["suggest"]["result"][0]["work"],
+      null | undefined
+    >["manifestations"]["bestRepresentation"];
+
 export const getManifestationLanguageIsoCode = (
-  manifestations: (
-    | Manifestation
-    | {
-        __typename?: "Manifestation";
-        pid: string;
-        languages?: {
-          __typename?: "Languages";
-          main?: Array<{ __typename?: "Language"; isoCode: string }> | null;
-        } | null;
-      }
-  )[]
-  // | SuggestionsFromQueryStringQuery["suggest"]["result"][0]["work"]["manifestations"]
+  manifestations: ManifestationOrBestRepresentation[]
 ) => {
   const mainLanguages = manifestations
     .map(({ languages }) => languages)
