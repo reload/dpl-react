@@ -10,10 +10,20 @@ fragment ManifestationsSimple on Manifestations {
   }
 }
 
+fragment Languages on Manifestation{
+  languages {
+    main {
+      display
+      isoCode
+    }
+  }
+}
+
 fragment ManifestationsSimpleFields on Manifestation {
   pid
   genreAndForm
   source
+  ...Languages
   titles {
     main
     original
@@ -30,12 +40,6 @@ fragment ManifestationsSimpleFields on Manifestation {
     __typename
   }
   publisher
-  languages {
-    main {
-      display
-      isoCode
-    }
-  }
   identifiers {
     value
   }

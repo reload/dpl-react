@@ -16,6 +16,10 @@ import { Manifestation, Work } from "../../core/utils/types/entities";
 import { FaustId } from "../../core/utils/types/ids";
 import MaterialType from "../../core/utils/types/material-type";
 import {
+  Language,
+  Languages,
+  LanguagesFragment,
+  ManifestationsSimpleFieldsFragment,
   SuggestionsFromQueryStringQuery,
   WorkType
 } from "../../core/dbc-gateway/generated/graphql";
@@ -110,15 +114,8 @@ export const getManifestationLanguages = (manifestation: Manifestation) => {
   );
 };
 
-type ManifestationOrBestRepresentation =
-  | Manifestation
-  | Exclude<
-      SuggestionsFromQueryStringQuery["suggest"]["result"][0]["work"],
-      null | undefined
-    >["manifestations"]["bestRepresentation"];
-
 export const getManifestationLanguageIsoCode = (
-  manifestations: ManifestationOrBestRepresentation[]
+  manifestations: LanguagesFragment[]
 ) => {
   const mainLanguages = manifestations
     .map(({ languages }) => languages)

@@ -14,11 +14,7 @@ query suggestionsFromQueryString($q: String!) {
         manifestations {
           bestRepresentation {
             pid
-            languages {
-              main {
-                isoCode
-              }
-            }
+            ...Languages
           }
         }
       }
