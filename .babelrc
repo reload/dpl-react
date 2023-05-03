@@ -34,10 +34,22 @@
               "node": "current"
             }
           }
-        ]
+        ],
+        [
+          "@babel/typescript",
+          {
+            "jsxPragma": "h"
+          }
+        ],
       ],
       "plugins": [
-        "istanbul"
+        "istanbul",
+        [
+          "@babel/transform-react-jsx",
+          {
+            "pragma": "h"
+          }
+        ]
       ]
     }
   }

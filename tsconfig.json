@@ -1,11 +1,22 @@
 {
   "extends": "@tsconfig/create-react-app/tsconfig.json",
   "compilerOptions": {
-    "jsx": "react",
+    "jsx": "preserve",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
     "types": [
       "cypress",
       "node"
     ],
+    "skipLibCheck": true,
+    "paths": {
+      "react": [
+        "./node_modules/preact/compat/"
+      ],
+      "react-dom": [
+        "./node_modules/preact/compat/"
+      ]
+    }
   },
   "ts-node": {
     // these options are overrides used only by ts-node

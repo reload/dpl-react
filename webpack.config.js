@@ -61,7 +61,13 @@ module.exports = (_env, argv) => {
       }
     },
     resolve: {
-      extensions: [".js", ".jsx", ".tsx", ".ts", ".json"]
+      extensions: [".js", ".jsx", ".tsx", ".ts", ".json"],
+      alias: {
+        react: "preact/compat",
+        "react-dom/test-utils": "preact/test-utils",
+        "react-dom": "preact/compat",
+        "react/jsx-runtime": "preact/jsx-runtime"
+      }
     },
     module: {
       rules: [
