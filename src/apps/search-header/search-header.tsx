@@ -17,7 +17,10 @@ import {
 } from "../../core/utils/helpers/url";
 import { WorkId } from "../../core/utils/types/ids";
 import { useText } from "../../core/utils/text";
-import { FacetMaterialType } from "../../core/utils/types/material-type";
+import {
+  AutosuggestCategoryListType,
+  AutosuggestCategoryType
+} from "../../core/utils/types/material-type";
 import { findNonWorkSuggestion } from "./helpers";
 import { useStatistics } from "../../core/statistics/useStatistics";
 import { statistics } from "../../core/statistics/statistics";
@@ -49,25 +52,41 @@ const SearchHeader: React.FC = () => {
 
   const { searchUrl, materialUrl } = useUrls();
   const t = useText();
-  const autosuggestCategoryList = [
-    { render: t("autosuggestBookCategoryText"), type: FacetMaterialType.book },
+  const autosuggestCategoryList: AutosuggestCategoryListType[] = [
+    {
+      render: t("autosuggestBookCategoryText"),
+      term: AutosuggestCategoryType.book,
+      facet: "materialTypes"
+    },
     {
       render: t("autosuggestEbookCategoryText"),
-      type: FacetMaterialType.ebook
+      term: AutosuggestCategoryType.ebook,
+      facet: "materialTypes"
     },
-    { render: t("autosuggestFilmCategoryText"), type: FacetMaterialType.movie },
+    {
+      render: t("autosuggestFilmCategoryText"),
+      term: AutosuggestCategoryType.movie,
+      facet: "workTypes"
+    },
     {
       render: t("autosuggestAudioBookCategoryText"),
-      type: FacetMaterialType.audioBook
+      term: AutosuggestCategoryType.audioBook,
+      facet: "materialTypes"
     },
     {
       render: t("autosuggestMusicCategoryText"),
-      type: FacetMaterialType.music
+      term: AutosuggestCategoryType.music,
+      facet: "workTypes"
     },
-    { render: t("autosuggestGameCategoryText"), type: FacetMaterialType.game },
+    {
+      render: t("autosuggestGameCategoryText"),
+      term: AutosuggestCategoryType.game,
+      facet: "workTypes"
+    },
     {
       render: t("autosuggestAnimatedSeriesCategoryText"),
-      type: FacetMaterialType.animatedSeries
+      term: AutosuggestCategoryType.animatedSeries,
+      facet: "materialTypes"
     }
   ];
   // Once we register the item select event the original highlighted index is
@@ -253,14 +272,14 @@ const SearchHeader: React.FC = () => {
         name: statistics.autosuggestClick.name,
         trackedData: selectedItemString
       }).then(() => {
+        const { term, facet } =
+          autosuggestCategoryList[highlightedCategoryIndex];
+
         redirectTo(
           constructSearchUrlWithFilter({
             searchUrl,
             selectedItemString,
-            filter: {
-              materialType:
-                autosuggestCategoryList[highlightedCategoryIndex].type
-            }
+            filter: { [facet]: term }
           })
         );
       });

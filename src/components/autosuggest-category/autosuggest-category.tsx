@@ -5,13 +5,14 @@ import { FC } from "react";
 import { SuggestionsFromQueryStringQuery } from "../../core/dbc-gateway/generated/graphql";
 import { useText } from "../../core/utils/text";
 import { Suggestion } from "../../core/utils/types/autosuggest";
+import { AutosuggestCategoryListType } from "../../core/utils/types/material-type";
 
 export interface AutosuggestCategoryProps {
   categoryData: SuggestionsFromQueryStringQuery["suggest"]["result"];
   getItemProps: UseComboboxPropGetters<Suggestion>["getItemProps"];
   highlightedIndex: number;
   textAndMaterialDataLength: number;
-  autosuggestCategoryList: { render: string; type: string }[];
+  autosuggestCategoryList: AutosuggestCategoryListType[];
   dataCy?: string;
 }
 
