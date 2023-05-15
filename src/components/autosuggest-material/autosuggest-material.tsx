@@ -1,5 +1,5 @@
 import { UseComboboxPropGetters } from "downshift";
-import React from "react";
+import React, { useEffect } from "react";
 import clsx from "clsx";
 import { useText } from "../../core/utils/text";
 import { Suggestion, Suggestions } from "../../core/utils/types/autosuggest";
@@ -27,6 +27,9 @@ const AutosuggestMaterial: React.FC<AutosuggestMaterialProps> = ({
   dataCy = "autosuggest-material-item"
 }) => {
   const t = useText();
+  useEffect(() => {
+    console.log({ materialData });
+  }, [materialData]);
   return (
     <>
       {/* eslint-disable react/jsx-props-no-spreading */}
