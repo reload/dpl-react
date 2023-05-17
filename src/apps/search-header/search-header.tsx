@@ -178,21 +178,15 @@ const SearchHeader: React.FC = () => {
   ) {
     const { type } = changes;
     let { highlightedIndex } = changes;
-    // Don't do aything for mouse hover events.
+
+    // Save the highlighted index for both keyboard and mouse events.
     if (
       type === useCombobox.stateChangeTypes.ItemMouseMove ||
-      type === useCombobox.stateChangeTypes.MenuMouseLeave
-    ) {
-      return;
-    }
-    // If this is a click/enter press we need to save the highlighted index
-    // before Downshift sets it to -1.
-    if (
-      type !== useCombobox.stateChangeTypes.ItemClick &&
       type !== useCombobox.stateChangeTypes.InputKeyDownEnter
     ) {
       if (highlightedIndex !== undefined && highlightedIndex > -1) {
         setHighlightedIndexAfterClick(highlightedIndex);
+        return;
       }
     }
     // Close autosuggest if there is no highlighted index.
