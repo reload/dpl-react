@@ -4067,7 +4067,7 @@
           },
           {
             "name": "series",
-            "description": "Series for this work",
+            "description": "Series for this manifestation",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -4171,7 +4171,7 @@
           },
           {
             "name": "universe",
-            "description": "Universe for this work",
+            "description": "Universe for this manifestation",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -4219,7 +4219,7 @@
           },
           {
             "name": "workYear",
-            "description": "The year this work was originally published or produced",
+            "description": "The year this manifestation was originally published or produced",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -4534,7 +4534,7 @@
           },
           {
             "name": "full",
-            "description": "The full title(s) of the work including subtitles etc",
+            "description": "The full title(s) of the manifestation including subtitles etc",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -4614,7 +4614,7 @@
           },
           {
             "name": "parallel",
-            "description": "Titles (in other languages) parallel to the main 'title' of the work",
+            "description": "Titles (in other languages) parallel to the main 'title' of the manifestation",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -6447,6 +6447,18 @@
                 "type": {
                   "kind": "ENUM",
                   "name": "LanguageCode",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "oclc",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
                   "ofType": null
                 },
                 "defaultValue": null,
@@ -8398,6 +8410,18 @@
             "deprecationReason": null
           },
           {
+            "name": "description",
+            "description": "Description of the series",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "isPopular",
             "description": "Whether this is a popular series or general series",
             "args": [],
@@ -8488,18 +8512,6 @@
             "type": {
               "kind": "SCALAR",
               "name": "Boolean",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "seriesDescription",
-            "description": "Description of the series",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,

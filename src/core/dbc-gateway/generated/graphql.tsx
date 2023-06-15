@@ -625,7 +625,7 @@ export type Manifestation = {
   relations: Relations;
   /** Some review data, if this manifestation is a review */
   review?: Maybe<ManifestationReview>;
-  /** Series for this work */
+  /** Series for this manifestation */
   series: Array<Series>;
   /** Information about on which shelf in the library this manifestation can be found */
   shelfmark?: Maybe<Shelfmark>;
@@ -637,13 +637,13 @@ export type Manifestation = {
   tableOfContents?: Maybe<TableOfContent>;
   /** Different kinds of titles for this work */
   titles: ManifestationTitles;
-  /** Universe for this work */
+  /** Universe for this manifestation */
   universe?: Maybe<Universe>;
   /** Information about on which volume this manifestation is in multi volume work */
   volume?: Maybe<Scalars["String"]>;
   /** Worktypes for this manifestations work */
   workTypes: Array<WorkType>;
-  /** The year this work was originally published or produced */
+  /** The year this manifestation was originally published or produced */
   workYear?: Maybe<PublicationYear>;
 };
 
@@ -690,7 +690,7 @@ export type ManifestationTitles = {
   __typename?: "ManifestationTitles";
   /** Alternative titles for this manifestation e.g. a title in a different language */
   alternative: Array<Scalars["String"]>;
-  /** The full title(s) of the work including subtitles etc */
+  /** The full title(s) of the manifestation including subtitles etc */
   full: Array<Scalars["String"]>;
   /** Information that distinguishes this manifestation from a similar manifestation with same title, e.g. 'illustrated by Ted Kirby' */
   identifyingAddition?: Maybe<Scalars["String"]>;
@@ -698,7 +698,7 @@ export type ManifestationTitles = {
   main: Array<Scalars["String"]>;
   /** The title of the work that this expression/manifestation is translated from or based on. The original title(s) of a film which has a different distribution title. */
   original?: Maybe<Array<Scalars["String"]>>;
-  /** Titles (in other languages) parallel to the main 'title' of the work */
+  /** Titles (in other languages) parallel to the main 'title' of the manifestation */
   parallel: Array<Scalars["String"]>;
   /** The sorted title of the entity */
   sort: Scalars["String"];
@@ -955,6 +955,7 @@ export type QueryWorkArgs = {
   faust?: InputMaybe<Scalars["String"]>;
   id?: InputMaybe<Scalars["String"]>;
   language?: InputMaybe<LanguageCode>;
+  oclc?: InputMaybe<Scalars["String"]>;
   pid?: InputMaybe<Scalars["String"]>;
 };
 
@@ -1195,6 +1196,8 @@ export type Series = {
   __typename?: "Series";
   /** A alternative title to the main 'title' of the series */
   alternativeTitles: Array<Scalars["String"]>;
+  /** Description of the series */
+  description?: Maybe<Scalars["String"]>;
   /** Whether this is a popular series or general series */
   isPopular?: Maybe<Scalars["Boolean"]>;
   /** Members of this serie.  */
@@ -1207,8 +1210,6 @@ export type Series = {
   readThisFirst?: Maybe<Scalars["Boolean"]>;
   /** Information about whether this work in the series can be read without considering the order of the series, it can be read at any time */
   readThisWhenever?: Maybe<Scalars["Boolean"]>;
-  /** Description of the series */
-  seriesDescription?: Maybe<Scalars["String"]>;
   /** The title of the series */
   title: Scalars["String"];
 };
