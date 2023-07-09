@@ -46,7 +46,7 @@ describe("Instant Loan", () => {
 
     cy.createFakeAuthenticatedSession();
     cy.visit(
-      "/iframe.html?&id=apps-material--instant-loan&viewMode=story&type=bog"
+      "/iframe.html?&id=apps-material--instant-loan&viewMode=story"
     ).scrollTo("bottom");
     cy.getBySel("material-description").scrollIntoView();
     cy.getBySel("material-header-buttons-physical")

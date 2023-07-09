@@ -6,7 +6,7 @@ describe("Material", () => {
       operationName: "getMaterial",
       fixtureFilePath: "material/fbi-api.json"
     });
-    cy.visit("/iframe.html?id=apps-material--default&viewMode=story&type=bog");
+    cy.visit("/iframe.html?id=apps-material--default&viewMode=story");
     cy.get(".text-header-h1").should("be.visible");
   });
 
@@ -15,7 +15,7 @@ describe("Material", () => {
       operationName: "getMaterial",
       fixtureFilePath: "material/fbi-api.json"
     });
-    cy.visit("/iframe.html?id=apps-material--default&viewMode=story&type=bog");
+    cy.visit("/iframe.html?id=apps-material--default&viewMode=story");
 
     cy.get("img").should("have.attr", "src").and("match", coverUrlPattern);
   });
@@ -25,7 +25,7 @@ describe("Material", () => {
       operationName: "getMaterial",
       fixtureFilePath: "material/fbi-api.json"
     });
-    cy.visit("/iframe.html?id=apps-material--default&viewMode=story&type=bog");
+    cy.visit("/iframe.html?id=apps-material--default&viewMode=story");
     cy.get(".button-favourite").should(
       "have.attr",
       "aria-label",
@@ -39,7 +39,7 @@ describe("Material", () => {
       fixtureFilePath: "material/fbi-api.json"
     });
 
-    cy.visit("/iframe.html?id=apps-material--default&viewMode=story&type=bog");
+    cy.visit("/iframe.html?id=apps-material--default&viewMode=story");
 
     cy.getBySel("material-header-content").scrollIntoView();
 
@@ -69,7 +69,7 @@ describe("Material", () => {
       operationName: "getMaterial",
       fixtureFilePath: "material/fbi-api.json"
     });
-    cy.visit("/iframe.html?id=apps-material--default&viewMode=story&type=bog");
+    cy.visit("/iframe.html?id=apps-material--default&viewMode=story");
 
     cy.getBySel("material-header-author-text")
       .should("be.visible")
@@ -82,7 +82,7 @@ describe("Material", () => {
       fixtureFilePath: "material/fbi-api.json"
     });
 
-    cy.visit("/iframe.html?id=apps-material--default&viewMode=story&type=bog");
+    cy.visit("/iframe.html?id=apps-material--default&viewMode=story");
 
     cy.getBySel("material-header-content").scrollIntoView();
 
@@ -98,7 +98,7 @@ describe("Material", () => {
       fixtureFilePath: "material/fbi-api.json"
     });
 
-    cy.visit("/iframe.html?id=apps-material--default&viewMode=story&type=bog");
+    cy.visit("/iframe.html?id=apps-material--default&viewMode=story");
 
     cy.getBySel("material-description").scrollIntoView();
 
@@ -116,7 +116,7 @@ describe("Material", () => {
       fixtureFilePath: "material/fbi-api.json"
     });
 
-    cy.visit("/iframe.html?id=apps-material--default&viewMode=story&type=bog");
+    cy.visit("/iframe.html?id=apps-material--default&viewMode=story");
 
     cy.getBySel("material-details-disclosure").click();
   });
@@ -127,7 +127,7 @@ describe("Material", () => {
       fixtureFilePath: "material/fbi-api.json"
     });
 
-    cy.visit("/iframe.html?id=apps-material--default&viewMode=story&type=bog");
+    cy.visit("/iframe.html?id=apps-material--default&viewMode=story");
 
     cy.scrollTo("bottom");
 
@@ -146,7 +146,7 @@ describe("Material", () => {
     });
 
     cy.createFakeAuthenticatedSession();
-    cy.visit("/iframe.html?id=apps-material--default&viewMode=story&type=bog");
+    cy.visit("/iframe.html?id=apps-material--default&viewMode=story");
 
     cy.getBySel("material-description").scrollIntoView();
 
@@ -177,9 +177,9 @@ describe("Material", () => {
       fixtureFilePath: "material/fbi-api.json"
     });
     cy.createFakeAuthenticatedSession();
-    cy.visit(
-      "/iframe.html?id=apps-material--default&viewMode=story&type=bog"
-    ).scrollTo("bottom");
+    cy.visit("/iframe.html?id=apps-material--default&viewMode=story").scrollTo(
+      "bottom"
+    );
 
     cy.getBySel("material-description").scrollIntoView();
 
@@ -221,7 +221,7 @@ describe("Material", () => {
       operationName: "getReviewManifestations",
       fixtureFilePath: "material/reviews.json"
     });
-    cy.visit("/iframe.html?id=apps-material--default&viewMode=story&type=bog");
+    cy.visit("/iframe.html?id=apps-material--default&viewMode=story");
 
     cy.scrollTo("bottom");
     cy.getBySel("material-reviews-disclosure").should("be.visible").click();
@@ -237,7 +237,7 @@ describe("Material", () => {
       fixtureFilePath: "material/fbi-api.json"
     });
 
-    cy.visit("/iframe.html?id=apps-material--default&viewMode=story&type=bog");
+    cy.visit("/iframe.html?id=apps-material--default&viewMode=story");
 
     cy.getBySel("material-description").scrollIntoView();
 
@@ -254,7 +254,7 @@ describe("Material", () => {
       fixtureFilePath: "material/fbi-api.json"
     });
 
-    cy.visit("/iframe.html?id=apps-material--default&viewMode=story&type=bog");
+    cy.visit("/iframe.html?id=apps-material--default&viewMode=story");
 
     cy.getBySel("material-description").scrollIntoView();
 

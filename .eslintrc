@@ -148,6 +148,24 @@
         // and want to show the props being used we disable this rule.
         "@typescript-eslint/no-unused-vars": "off"
       }
+    },
+    {
+      "files": [
+        "*.test.js",
+        "*.test.jsx",
+        "*.test.ts",
+        "*.test.tsx"
+      ],
+      "rules": {
+        "no-restricted-syntax": [
+          "warn",
+          {
+            "selector": "CallExpression[callee.object.name=\"cy\"][callee.property.name=\"visit\"][arguments.0.value=/&type=/]",
+            "message": "Storybook urls for Cypress tests should not include a preselected type"
+          }
+        ]
+      }
+
     }
   ]
 }

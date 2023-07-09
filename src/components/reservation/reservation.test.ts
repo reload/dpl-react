@@ -57,7 +57,7 @@ describe("Reservation", () => {
 
     // We simulate that the user is logged in so that we can open the modal.
     cy.createFakeAuthenticatedSession();
-    cy.visit("/iframe.html?id=apps-material--default&type=bog");
+    cy.visit("/iframe.html?id=apps-material--default");
 
     cy.scrollTo("bottom");
     // eslint-disable-next-line
@@ -87,7 +87,7 @@ describe("Reservation", () => {
 
     // We simulate that the user is logged in so that we can open the modal.
     cy.createFakeAuthenticatedSession();
-    cy.visit("/iframe.html?id=apps-material--turen-gar-til-rom&type=bog");
+    cy.visit("/iframe.html?id=apps-material--turen-gar-til-rom");
 
     cy.scrollTo("bottom");
     // eslint-disable-next-line

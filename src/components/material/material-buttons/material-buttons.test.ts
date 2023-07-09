@@ -7,7 +7,7 @@ describe("Material buttons", () => {
       url: "**/availability/v3?recordid=**",
       fixtureFilePath: "material/unavailability.json"
     });
-    cy.visit("/iframe.html?id=apps-material--default&viewMode=story&type=bog")
+    cy.visit("/iframe.html?id=apps-material--default&viewMode=story")
       .getBySel("material-description")
       .scrollIntoView();
 
@@ -18,7 +18,7 @@ describe("Material buttons", () => {
   });
 
   it("Doesn't render find on shelf button for online materials", () => {
-    cy.visit("/iframe.html?id=apps-material--default&viewMode=story&type=bog")
+    cy.visit("/iframe.html?id=apps-material--default&viewMode=story")
       .getBySel("material-description")
       .scrollIntoView();
 
@@ -30,7 +30,7 @@ describe("Material buttons", () => {
   });
 
   it("Renders a reservation button for physical materials with material type", () => {
-    cy.visit("/iframe.html?id=apps-material--default&viewMode=story&type=bog")
+    cy.visit("/iframe.html?id=apps-material--default&viewMode=story")
       .getBySel("material-description")
       .scrollIntoView();
 
@@ -53,7 +53,7 @@ describe("Material buttons", () => {
       url: "**/availability/v3?recordid=**",
       fixtureFilePath: "material/unavailability.json"
     });
-    cy.visit("/iframe.html?id=apps-material--default&viewMode=story&type=bog")
+    cy.visit("/iframe.html?id=apps-material--default&viewMode=story")
       .getBySel("material-description")
       .scrollIntoView();
 
@@ -64,7 +64,7 @@ describe("Material buttons", () => {
   });
 
   it("Renders the correct action button for ebooks from ereolen", () => {
-    cy.visit("/iframe.html?id=apps-material--default&viewMode=story&type=bog")
+    cy.visit("/iframe.html?id=apps-material--default&viewMode=story")
       .getBySel("material-description")
       .scrollIntoView();
 
@@ -73,7 +73,7 @@ describe("Material buttons", () => {
   });
 
   it("Renders the correct action button for movies from filmstriben", () => {
-    cy.visit("/iframe.html?id=apps-material--default&viewMode=story&type=bog")
+    cy.visit("/iframe.html?id=apps-material--default&viewMode=story")
       .getBySel("material-description")
       .scrollIntoView();
 
@@ -84,7 +84,7 @@ describe("Material buttons", () => {
   });
 
   it("Renders the correct action button for online audio books", () => {
-    cy.visit("/iframe.html?id=apps-material--default&viewMode=story&type=bog")
+    cy.visit("/iframe.html?id=apps-material--default&viewMode=story")
       .getBySel("material-description")
       .scrollIntoView();
 
@@ -93,7 +93,7 @@ describe("Material buttons", () => {
   });
 
   it("Renders the correct action button for other online materials", () => {
-    cy.visit("/iframe.html?id=apps-material--default&viewMode=story&type=bog")
+    cy.visit("/iframe.html?id=apps-material--default&viewMode=story")
       .getBySel("material-description")
       .scrollIntoView();
 
@@ -107,9 +107,7 @@ describe("Material buttons", () => {
       fixtureFilePath:
         "material-buttons/material-buttons-order-digital-fbi-api.json"
     });
-    cy.visit(
-      "/iframe.html?id=apps-material--digital&viewMode=story&type=tidsskriftsartikel"
-    )
+    cy.visit("/iframe.html?id=apps-material--digital&viewMode=story")
       .getBySel("material-description")
       .scrollIntoView();
 
@@ -140,7 +138,7 @@ describe("Material buttons", () => {
       fixtureFilePath: "material/user-blocked.json"
     });
     cy.createFakeAuthenticatedSession();
-    cy.visit("/iframe.html?id=apps-material--default&viewMode=story&type=bog")
+    cy.visit("/iframe.html?id=apps-material--default&viewMode=story")
       .getBySel("material-description")
       .scrollIntoView();
 

@@ -4,7 +4,7 @@ describe("Material", () => {
   it("Redirects to login & opens reservation modal on subsequent land-in", () => {
     window.sessionStorage.removeItem("user");
 
-    cy.visit("/iframe.html?id=apps-material--default&type=bog&");
+    cy.visit("/iframe.html?id=apps-material--default");
 
     cy.wait("@getMaterial GraphQL operation");
 
@@ -32,7 +32,7 @@ describe("Material", () => {
       fixtureFilePath: "material/holdings.json"
     });
 
-    cy.visit("/iframe.html?id=apps-material--default&type=bog");
+    cy.visit("/iframe.html?id=apps-material--default");
     cy.wait("@getMaterial GraphQL operation");
 
     // Activate lazy loading
