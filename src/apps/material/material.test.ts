@@ -1,3 +1,5 @@
+import AvailabilityFactory from "../../../cypress/factories/availability";
+
 const coverUrlPattern = /^https:\/\/res\.cloudinary\.com\/.*\.(jpg|jpeg|png)$/;
 
 describe("Material", () => {
@@ -297,11 +299,11 @@ describe("Material", () => {
       fixtureFilePath: "cover.json"
     });
 
-    cy.interceptRest({
-      aliasName: "Availability",
-      url: "**/availability/v3?recordid=**",
-      fixtureFilePath: "material/availability.json"
-    });
+    cy.intercept(
+      "GET",
+      "**/availability/v3?recordid=**",
+      AvailabilityFactory.buildList(1, { recordId: "46615743" })
+    ).as("Availability");
 
     // Intercept like button
     cy.intercept("HEAD", "**/list/default/**", {
