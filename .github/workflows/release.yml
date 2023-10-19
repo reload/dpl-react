@@ -66,8 +66,14 @@ jobs:
       #     GITHUB_TOKEN: ${{ secrets.github_token }}
       #   run: |
       #     ghr -prerelease -replace -delete -n "release-${{ github.ref_name }}" -c "${{ github.ref_name }}" "release-${{ github.ref_name }}" dist.zip
+      - name: Tag and push current repo code
+        continue-on-error: true
+        run: |
+          git tag ${{github.run_id}}
+          git push origin ${{github.run_id}}
       - name: Create release with asset
         uses: fnkr/github-action-ghr@v1
+        if: startsWith(github.ref, 'refs/tags/')
         env:
           GHR_REPLACE: true
           GHR_COMPRESS: zip
