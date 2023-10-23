@@ -1420,7 +1420,7 @@ describe("Dashboard", () => {
       .should("not.exist");
   });
 
-  it.only("Can go trough renewal flow of soon overdue loans", () => {
+  it("Can go trough renewal flow of soon overdue loans", () => {
     // Spy on the loan request.
     cy.intercept(
       "**/external/agencyid/patrons/patronid/loans/v2**",
