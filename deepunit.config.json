@@ -1,0 +1,11 @@
+{
+  "frontendFramework": "react",
+  "ignoredDirectories": [
+    "src/tests"
+  ],
+  "ignoredFiles": [],
+  "includeFailingTests": false,
+  "testSuffix": "test",
+  "testingLanguageOverride": "typescript",
+  "testingFramework": "jest"
+}

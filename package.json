@@ -42,7 +42,8 @@
     "codegen:client:cover": "orval --project coverService",
     "codegen:client:publizon": "orval --project publizonAdapter",
     "codegen:client:dpl-cms": "orval --project dplCms",
-    "post-process-generated-graphql": "ts-node ./scripts/post-process-generated-graphql.ts"
+    "post-process-generated-graphql": "ts-node ./scripts/post-process-generated-graphql.ts",
+    "deepunit": "deepunit"
   },
   "devDependencies": {
     "@babel/core": "^7.23.2",
@@ -94,6 +95,7 @@
     "css-loader": "^6.7.1",
     "cssnano": "^6.0.1",
     "cypress": "^9.6.1",
+    "deepunit": "^1.5.1",
     "dotenv": "^16.3.1",
     "eslint": "^8.15.0",
     "eslint-config-airbnb": "^19.0.4",
