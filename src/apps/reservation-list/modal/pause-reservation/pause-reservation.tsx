@@ -8,10 +8,10 @@ import {
   getGetPatronInformationByPatronIdV2QueryKey
 } from "../../../../core/fbs/fbs";
 import { Patron, PatronV5 } from "../../../../core/fbs/model";
-import { getModalIds } from "../../../../core/utils/helpers/general";
 import { useConfig } from "../../../../core/utils/config";
 import DateInputs from "../../../../components/date-inputs/date-inputs";
 import { useUrls } from "../../../../core/utils/url";
+import { getModalIds } from "../../../../core/utils/helpers/modal-helpers";
 
 interface PauseReservationProps {
   id: string;
