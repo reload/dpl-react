@@ -2,7 +2,7 @@ import React, { FC, ReactNode } from "react";
 import Modal from "../../../core/utils/modal";
 import { useText } from "../../../core/utils/text";
 import { ReservationType } from "../../../core/utils/types/reservation-type";
-import { LoanType } from "../../../core/utils/types/loan-type";
+import { loanId, LoanType } from "../../../core/utils/types/loan-type";
 import {
   constructModalId,
   getModalIds
@@ -26,7 +26,7 @@ export function reservationDetailsModalId(
 
 export function loanDetailsModalId(loan: LoanType): string {
   const prefix = String(getModalIds().loanDetails);
-  const fragment = String(loan.loanId);
+  const fragment = loanId(loan);
   // TODO: Use constructModalId() instead of string concatenation.
   return `${prefix}${fragment}`;
 }
